@@ -2,11 +2,11 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/actionCreators.js";
+import Loader from "react-loader-spinner";
 
 function Login(props) {
   const refEmail = React.createRef();
   const refPassword = React.createRef();
-  console.log(refEmail)
 
   const submitLogin = event => {
     event.preventDefault();
@@ -15,7 +15,6 @@ function Login(props) {
       password: refPassword.current.value
     });
     refPassword.current.value = "";
-    refEmail.current.value = "";
   };
 
   if (localStorage.getItem("token")) {
@@ -24,17 +23,18 @@ function Login(props) {
     return (
       <div>
         <form onSubmit={submitLogin}>
-          <input
-            type="text"
-            placeholder="E-mail"
-            ref={refEmail}
-          />
-          <input
-            type="text"
-            placeholder="Password"
-            ref={refPassword}        
-          />
-          <input type="submit" onClick={submitLogin} value="Login" />
+          <input type="email" placeholder="Enter Email" ref={refEmail} />
+          <input type="password" placeholder="Enter Password" ref={refPassword} />
+          <button type="submit">
+            {props.signingUp ? (
+              <Loader type="ThreeDots" color="#ccc" height={80} width={80} />
+            ) : (
+              "Log In"
+            )}
+          </button>
+          {!props.loginSuccess && (
+            <div>Wrong email or password, please try again</div>
+          )}
         </form>
       </div>
     );

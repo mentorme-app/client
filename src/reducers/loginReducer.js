@@ -2,12 +2,12 @@ import * as types from "../actions/actionTypes.js";
 
 const initialState_login = {
   token: "",
-  loginSuccess: null,
+  loginSuccess: true,
   isLogginIn: false
 };
 
 export const loginReducer = (state = initialState_login, action) => {
-  switch (action) {
+  switch (action.type) {
     case types.START_LOGIN:
       return { ...state, isLogginIn: true };
     case types.END_LOGIN:

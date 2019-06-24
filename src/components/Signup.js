@@ -6,7 +6,7 @@ import { signup } from "../actions";
 const Signup = props => {
 
   const [userData, setUser] = useState({
-    name: "",
+    username: "",
     email: "",
     password: ""
   });
@@ -24,8 +24,8 @@ const Signup = props => {
         <input
           type="text"
           placeholder="Enter name"
-          value={userData.name}
-          onChange={e => setUser({ ...userData, name: e.target.value })}
+          value={userData.username}
+          onChange={e => setUser({ ...userData, username: e.target.value })}
         />
         <input
           type="email"

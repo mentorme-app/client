@@ -18,13 +18,15 @@ export const signupReducer = (state = initialState, action) => {
     case SIGNUP_SUCCESS:
       return {
         ...state,
-        signingUp: false
+        signingUp: false,
+        token: action.payload
       };
 
     case SIGNUP_FAILURE:
       return {
         ...state,
-        signingUp: false
+        signingUp: false,
+        error: action.payload
       };
 
     default:

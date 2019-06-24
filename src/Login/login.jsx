@@ -43,8 +43,11 @@ function Login(props) {
   }
 }
 
-function mapStatetoProps(state){
-    
+function mapStatetoProps(state) {
+  return {
+    isLoggingIn: state.loginReducer.isLoggingIn,
+    loginSuccess: state.loginReducer.loginSuccess
+  };
 }
 
 export default connect(

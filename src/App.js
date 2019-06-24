@@ -1,11 +1,11 @@
-import React from "react";
-import "./App.css";
-import Login from "./Login/login.jsx";
+import React from 'react';
+import './App.css';
+import MentorMe from './views/MentorMe';
 
 function App() {
   return (
     <div className="App">
-      <Login />
+      <MentorMe />
     </div>
   );
 }

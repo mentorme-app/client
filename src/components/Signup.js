@@ -4,7 +4,7 @@ import Loader from "react-loader-spinner";
 import { signup } from "../actions";
 
 const Signup = props => {
-    console.log(props)
+
   const [userData, setUser] = useState({
     name: "",
     email: "",

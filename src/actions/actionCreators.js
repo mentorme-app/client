@@ -11,13 +11,11 @@ export const signup = userData => dispatch => {
       password
     })
     .then(res => {
-      console.log(res);
       localStorage.setItem("token", res.data.token);
       dispatch({ type: types.SIGNUP_SUCCESS, payload: res.data.token });
     })
     .catch(err => {
       dispatch({ type: types.SIGNUP_FAILURE, payload: err.message });
-      console.log(err.message);
     });
 };
 

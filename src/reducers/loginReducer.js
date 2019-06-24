@@ -1,12 +1,12 @@
-import * as types from "./actiontypes.js";
+import * as types from "../actions/actionTypes.js";
 
-const initialState = {
+const initialState_login = {
   token: "",
   loginSuccess: null,
   isLogginIn: false
 };
 
-export const loginReducer = (state = initialState, action) => {
+export const loginReducer = (state = initialState_login, action) => {
   switch (action) {
     case types.START_LOGIN:
       return { ...state, isLogginIn: true };

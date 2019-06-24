@@ -1,21 +1,21 @@
 import React from "react";
-import {} from "";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { loginUser } from "./loginActions.js";
+import { loginUser } from "../actions/actionCreators.js";
 
 function Login(props) {
-  const refName = React.createRef();
+  const refEmail = React.createRef();
   const refPassword = React.createRef();
+  console.log(refEmail)
 
   const submitLogin = event => {
     event.preventDefault();
-    this.props.loginUser({
-      username: refName.current.value,
+    props.loginUser({
+      email: refEmail.current.value,
       password: refPassword.current.value
     });
     refPassword.current.value = "";
-    refName.current.value = "";
+    refEmail.current.value = "";
   };
 
   if (localStorage.getItem("token")) {
@@ -26,15 +26,13 @@ function Login(props) {
         <form onSubmit={submitLogin}>
           <input
             type="text"
-            placeholder="Username"
-            ref={refName}
-            value={refName.current.value}
+            placeholder="E-mail"
+            ref={refEmail}
           />
           <input
             type="text"
             placeholder="Password"
-            ref={refPassword}
-            value={refPassword.current.value}
+            ref={refPassword}        
           />
           <input type="submit" onClick={submitLogin} value="Login" />
         </form>

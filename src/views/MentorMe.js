@@ -1,20 +1,33 @@
 import React, { Component } from "react";
-/* import Signup from "../components/Signup.js";
-import Login from "../components/Login.js"; */
-import Homepage from "../components/Homepage.js";
-import { Route } from "react-router-dom";
-
-
+import Signup from "../components/Signup";
+import UserProfile from "../components/UserProfile";
+import Login from "../components/Login";
+import { Route, Redirect } from "react-router-dom";
 
 
 export default class MentorMe extends Component {
-    render() {
-        return (
-            <div>
-                {/* <Route path="/SignUp" component={Signup} />
-                <Route path="/LogIn" component={Login} /> */}
-                <Route exact path="/" component={Homepage} />
-            </div>
-        )
-    }
+  //   constructor(props) {
+  //     super(props);
+  //   }
+
+  render() {
+    return (
+      <div>
+        <Route
+          exact
+          path="/"
+          render={() =>
+            localStorage.getItem("token") ? (
+              <Redirect to= "/profile" />
+            ) : (
+              <Redirect to="/signup" />
+            )
+          }
+        />
+        <Route path="/profile" component={UserProfile} />
+        <Route path="/signup" render={props => <Signup {...props} />} />
+        <Route path="/login" component={Login} />
+      </div>
+    );
+  }
 }

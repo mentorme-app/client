@@ -1,17 +1,35 @@
 import axios from "axios";
-import * as types from './actionTypes';
+import * as types from "./actionTypes";
 
-export const signup  = (name, email, password) => dispatch => {
-  dispatch({ type: types.SIGNUP_LOAD });
-   axios
-    .post("https://mentor-me-backend.herokuapp.com/signup", { name, email, password })
-    .then(res => {
-      localStorage.setItem("token", res.data);
-      dispatch({ type: types.SIGNUP_SUCCESS });
+export const signup = userData => dispatch => {
+  const { username, email, password } = userData;
+  dispatch(startSignup());
+  axios
+    .post("https://mentor-me-backend.herokuapp.com/api/auth/register", {
+      username,
+      email,
+      password
     })
-    .catch(err => console.log(err.message));
+    .then(res => {
+      localStorage.setItem("token", res.data.token);
+      dispatch(signUpSuccess(res.data.token));
+    })
+    .catch(err => {
+      dispatch(signUpFail(err.message));
+    });
 };
 
+export const userProfile = () => dispatch => {
+  dispatch(userLoad());
+  axios
+    .get("https://mentor-me-backend.herokuapp.com/api/user")
+    .then(res => {
+      dispatch(userSuccess(res.data));
+    })
+    .catch(err => {
+      dispatch(userFail(err.message));
+    });
+};
 
 export function loginUser(user) {
   return dispatch => {
@@ -29,6 +47,30 @@ export function loginUser(user) {
   };
 }
 
+
+
+// SIGN UP ACTION TYPES
+export function startSignup() {
+  return {
+    type: types.SIGNUP_LOAD,
+  };
+}
+
+export function signUpSuccess(payload) {
+  return {
+    type: types.SIGNUP_SUCCESS,
+    payload: payload
+  };
+}
+
+export function signUpFail(payload) {
+  return {
+    type: types.SIGNUP_FAILURE,
+    payload: payload
+  };
+}
+
+// LOGIN ACTION TYPES
 export function login(payload) {
   return {
     type: types.LOGIN,
@@ -57,5 +99,27 @@ export function startLogin() {
 export function endLogin() {
   return {
     type: types.END_LOGIN
+  };
+}
+
+// USER PROFILE ACTION TYPES
+
+export function userLoad() {
+  return {
+    type: types.USER_LOAD,
+  };
+}
+
+export function userSuccess(payload) {
+  return {
+    type: types.USER_SUCCESS,
+    payload: payload
+  };
+}
+
+export function userFail(payload) {
+  return {
+    type: types.USER_FAILURE,
+    payload: payload
   };
 }

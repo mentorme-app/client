@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/actionCreators.js";
 import Loader from "react-loader-spinner";
 
 function Login(props) {
-  const refEmail = React.createRef();
-  const refPassword = React.createRef();
+  const [state, changeState] = useState({
+    email: "",
+    password: ""
+  });
 
   const submitLogin = event => {
     event.preventDefault();
     props.loginUser({
-      email: refEmail.current.value,
-      password: refPassword.current.value
+      email: state.email,
+      password: state.password
     });
-    refPassword.current.value = "";
+    changeState({ ...state, password: "" });
   };
 
   if (localStorage.getItem("token")) {
@@ -23,15 +25,19 @@ function Login(props) {
     return (
       <div>
         <form onSubmit={submitLogin}>
-          <input type="email" placeholder="Enter Email" ref={refEmail} />
-          <input type="password" placeholder="Enter Password" ref={refPassword} />
-          <button type="submit">
-            {props.signingUp ? (
-              <Loader type="ThreeDots" color="#ccc" height={80} width={80} />
-            ) : (
-              "Log In"
-            )}
-          </button>
+          <input
+            type="email"
+            placeholder="Enter Email"
+            onChange={e => changeState({ ...state, email: e.target.value })}
+          />
+          <input
+            type="password"
+            placeholder="Enter Password"
+            onChange={e => changeState({ ...state, password: e.target.value })}
+          />
+          <input type="submit">
+            {props.isLoggingIn ? "Loading..." : "LOGIN"}
+          </input>
           {!props.loginSuccess && (
             <div>Wrong email or password, please try again</div>
           )}

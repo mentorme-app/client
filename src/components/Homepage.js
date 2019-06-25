@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as styles from "../styled-components/styled-components";
 import { fetchQuestions } from "../actions/actionCreators.js";
@@ -8,7 +7,6 @@ import {
   IoIosArrowDown,
   IoIosMenu,
   IoIosHome,
-  IoIosPeople,
   IoIosChatbubbles,
   IoIosBuild
 } from "react-icons/io";
@@ -56,8 +54,8 @@ function Homepage(props) {
       </styles.StyledHeadSection>
       {props.questions.map(question => {
         return (
-          <styles.StyledLink to={`/question/${question.id}`}>
-            <styles.StyledQuestionCard image={question.author.avatar}>
+          <styles.StyledLink key={question.id} to={`/question/${question.id}`}>
+            <styles.StyledQuestionCard key={question.id} image={question.author.avatar}>
               <h1>{question.author.username}</h1>
               <h2>{question.tag.tag}</h2>
               <p>{question.question}</p>

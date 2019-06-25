@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import { signup } from "../actions";
 
 const Signup = props => {
-  console.log(props);
+  
   const [userData, setUser] = useState({
     username: "",
     email: "",
@@ -17,6 +17,12 @@ const Signup = props => {
 
     props.signup(userData);
   };
+
+  useEffect(() => {
+    if(localStorage.getItem('token')) {
+      props.history.push('/profile')
+    }
+  })
 
   return (
     <SignupModal display={localStorage.getItem("token") ? "none" : "block"}>

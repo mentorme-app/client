@@ -5,9 +5,9 @@ import Login from "../components/Login";
 import { Route, Redirect } from "react-router-dom";
 
 export default class MentorMe extends Component {
-//   constructor(props) {
-//     super(props);
-//   }
+  //   constructor(props) {
+  //     super(props);
+  //   }
 
   render() {
     return (
@@ -17,13 +17,14 @@ export default class MentorMe extends Component {
           path="/"
           render={() =>
             localStorage.getItem("token") ? (
-                <UserProfile />
+              <Redirect to= "/profile" />
             ) : (
               <Redirect to="/signup" />
             )
           }
         />
-        <Route path="/signup"  render={props => <Signup {...props} />} /> 
+        <Route path="/profile" component={UserProfile} />
+        <Route path="/signup" render={props => <Signup {...props} />} />
         <Route path="/login" component={Login} />
       </div>
     );

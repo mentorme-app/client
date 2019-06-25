@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const StyledHeadSection = styled.section`
   display: flex;
@@ -27,7 +27,7 @@ export const StyledSubheading = styled.h1`
 `;
 
 export const StyledQuestionCard = styled.div`
-  background-image: url(${props => props.inputPicture});
+  background-image: url(${props => props.image});
   background-repeat: no-repeat;
   background-size: cover;
   
@@ -47,4 +47,93 @@ export const StyledFooter = styled.footer`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+`;
+
+export const SignupModal = styled.div`
+  animation: ${props => (props.display ? fadeIn : fadeOut)} 0.3s linear;
+  display: ${props => props.display};
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 812px;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  background-image: linear-gradient(25deg, #5574f7, #60c3ff);
+  color: #fff;
+
+  div {
+    margin: 133px 30px;
+
+    a {
+      text-decoration: underline;
+      color: #fff;
+      cursor: pointer;
+    }
+    h1 {
+      color: #fff;
+      margin-bottom: 90px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      * {
+        box-sizing: border-box;
+      }
+
+      input {
+        margin: 1.2rem 0rem;
+        padding-bottom: 1rem;
+        background: none;
+        border: none;
+        border-bottom: 1px solid #fff;
+        color: #fff;
+        font-size: 1rem;
+        ::-webkit-input-placeholder {
+          color: #fff;
+          font-size: 1rem;
+        }
+        &:focus {
+          outline: none;
+        }
+      }
+
+      button {
+        background-color: #fff;
+        color: #5887f9;
+        padding: 1rem;
+        border: none;
+        border-radius: 0.3rem;
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 1.2rem 0rem;
+      }
+    }
+  }
+`;
+
+export const fadeIn = keyframes`
+  from {
+    transform: scale(.25);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+`;
+
+export const fadeOut = keyframes`
+  from {
+    transform: scale(1);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(.25);
+    opacity: 1;
+  }
 `;

@@ -123,3 +123,35 @@ export function userFail(payload) {
     payload: payload
   };
 }
+
+// QUESTIONS ACTION TYPES
+export const fetchQuestions = () => dispatch => {
+  debugger;
+  axios
+    .get("https://mentor-me-backend.herokuapp.com/api/questions")
+    .then(res => {
+      console.log(".then")
+      dispatch(questionsSuccess(res.data))
+    })
+    .catch(err => {
+      console.log("error");
+    });
+};
+export const userProfile = () => dispatch => {
+  dispatch(userLoad());
+  axios
+    .get("https://mentor-me-backend.herokuapp.com/api/user")
+    .then(res => {
+      dispatch(userSuccess(res.data));
+    })
+    .catch(err => {
+      dispatch(userFail(err.message));
+    });
+};
+
+export function questionsSuccess(payload){
+    return {
+      type: types.QUESTIONS_SUCCESS,
+      payload: payload
+    }
+}

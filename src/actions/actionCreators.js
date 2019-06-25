@@ -3,7 +3,7 @@ import * as types from "./actionTypes";
 
 export const signup = userData => dispatch => {
   const { username, email, password } = userData;
-  dispatch({ type: types.SIGNUP_LOAD });
+  dispatch(startSignup());
   axios
     .post("https://mentor-me-backend.herokuapp.com/api/auth/register", {
       username,
@@ -12,22 +12,22 @@ export const signup = userData => dispatch => {
     })
     .then(res => {
       localStorage.setItem("token", res.data.token);
-      dispatch({ type: types.SIGNUP_SUCCESS, payload: res.data.token });
+      dispatch(signUpSuccess(res.data.token));
     })
     .catch(err => {
-      dispatch({ type: types.SIGNUP_FAILURE, payload: err.message });
+      dispatch(signUpFail(err.message));
     });
 };
 
 export const userProfile = () => dispatch => {
-  dispatch({ type: types.USER_LOAD });
+  dispatch(userLoad());
   axios
     .get("https://mentor-me-backend.herokuapp.com/api/user")
     .then(res => {
-      dispatch({ type: types.USER_SUCCESS, payload: res.data });
+      dispatch(userSuccess(res.data));
     })
     .catch(err => {
-      dispatch({ type: types.USER_FAILURE, payload: err.message });
+      dispatch(userFail(err.message));
     });
 };
 
@@ -47,6 +47,30 @@ export function loginUser(user) {
   };
 }
 
+
+
+// SIGN UP ACTION TYPES
+export function startSignup() {
+  return {
+    type: types.SIGNUP_LOAD,
+  };
+}
+
+export function signUpSuccess(payload) {
+  return {
+    type: types.SIGNUP_SUCCESS,
+    payload: payload
+  };
+}
+
+export function signUpFail(payload) {
+  return {
+    type: types.SIGNUP_FAILURE,
+    payload: payload
+  };
+}
+
+// LOGIN ACTION TYPES
 export function login(payload) {
   return {
     type: types.LOGIN,
@@ -75,5 +99,27 @@ export function startLogin() {
 export function endLogin() {
   return {
     type: types.END_LOGIN
+  };
+}
+
+// USER PROFILE ACTION TYPES
+
+export function userLoad() {
+  return {
+    type: types.USER_LOAD,
+  };
+}
+
+export function userSuccess(payload) {
+  return {
+    type: types.USER_SUCCESS,
+    payload: payload
+  };
+}
+
+export function userFail(payload) {
+  return {
+    type: types.USER_FAILURE,
+    payload: payload
   };
 }

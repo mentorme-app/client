@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as styles from "../styled-components/styled-components";
@@ -14,19 +14,41 @@ import {
 } from "react-icons/io";
 
 function Homepage(props) {
-  function test() {
-    console.log(fetchQuestions);
-  }
+  const [state, toggleMenu] = useState({
+    menuBool: false
+  });
+  const { fetchQuestions } = props;
 
-  useEffect(() => fetchQuestions());
+  useEffect(() => fetchQuestions(), [fetchQuestions]);
 
   return (
     <div>
+      {state.menuBool && (
+        <styles.SideNav>
+          <styles.BlackLink to="/home">
+            <IoIosHome /> Home
+          </styles.BlackLink>
+          <styles.BlackLink to="/chats">
+            <IoIosChatbubbles /> Chats
+          </styles.BlackLink>
+          <styles.BlackLink to="/changeProfile">
+            <IoIosBuild /> Change Profile
+          </styles.BlackLink>
+        </styles.SideNav>
+      )}
       <styles.StyledHeadSection>
         <styles.StyledHeader>
-          <IoIosMenu />
+          <div
+            onClick={() => {
+              toggleMenu({ menuBool: !state.menuBool });
+            }}
+          >
+            <IoIosMenu />
+          </div>
           <styles.StyledH1>Questions Feed</styles.StyledH1>
-          <IoIosSearch />
+          <styles.BlackLink to="/search">
+            <IoIosSearch />
+          </styles.BlackLink>
         </styles.StyledHeader>
         <styles.StyledSubheading>
           Topic <IoIosArrowDown />
@@ -34,20 +56,25 @@ function Homepage(props) {
       </styles.StyledHeadSection>
       {props.questions.map(question => {
         return (
-          <Link to={`/question/${question.id}`}>
+          <styles.StyledLink to={`/question/${question.id}`}>
             <styles.StyledQuestionCard image={question.author.avatar}>
               <h1>{question.author.username}</h1>
               <h2>{question.tag.tag}</h2>
               <p>{question.question}</p>
             </styles.StyledQuestionCard>
-          </Link>
+          </styles.StyledLink>
         );
       })}
       <styles.StyledFooter>
-        <IoIosHome />
-        <IoIosPeople />
-        <IoIosChatbubbles />
-        <IoIosBuild />
+        <styles.BlackLink to="/home">
+          <IoIosHome />
+        </styles.BlackLink>
+        <styles.BlackLink to="/chats">
+          <IoIosChatbubbles />
+        </styles.BlackLink>
+        <styles.BlackLink to="/changeProfile">
+          <IoIosBuild />
+        </styles.BlackLink>
       </styles.StyledFooter>
     </div>
   );

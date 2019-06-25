@@ -5,7 +5,6 @@ const initialState = {
 };
 
 export const questionsReducer = (state = initialState, action) => {
-  console.log(action.type);
   switch (action.type) {
     case QUESTIONS_SUCCESS:
       return {

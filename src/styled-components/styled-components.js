@@ -1,4 +1,6 @@
 import styled, { keyframes } from "styled-components";
+import { Link } from "react-router-dom";
+import img from "../images/ask-blackboard-356079.jpg";
 
 export const StyledHeadSection = styled.section`
   display: flex;
@@ -27,18 +29,32 @@ export const StyledSubheading = styled.h1`
 `;
 
 export const StyledQuestionCard = styled.div`
-  background-image: url(${props => props.image});
+  background-image: url(${props => (props.image ? props.image : img)});
   background-repeat: no-repeat;
   background-size: cover;
-  
-  .h1 {
+  height: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  h1 {
     font-size: 24px;
     text-align: center;
+    text-decoration: none;
+    color: white;
+    margin: 0;
   }
 
-  .h2 {
+  h2 {
+    margin: 0;
     font-size: 16px;
-    color: #ffffff 60%;
+    color: grey;
+  }
+
+  p {
+    margin: 1rem 0 1rem 0;
+    text-decoration: none;
+    color: white;
   }
 `;
 
@@ -47,6 +63,7 @@ export const StyledFooter = styled.footer`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  margin: 1rem 0;
 `;
 
 export const SignupModal = styled.div`
@@ -136,4 +153,25 @@ export const fadeOut = keyframes`
     transform: scale(.25);
     opacity: 1;
   }
+`;
+
+export const StyledLink = styled(Link)`
+  color: white;
+  text-decoration: none;
+`;
+
+export const BlackLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+`;
+
+export const SideNav = styled.nav`
+  position: absolute;
+  top: 7%;
+  background-color: white;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start
+
 `;

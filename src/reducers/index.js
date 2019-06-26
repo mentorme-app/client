@@ -1,12 +1,10 @@
 import { combineReducers } from "redux";
+import { authReducer } from "./authReducer";
 import { userReducer } from "./userReducer";
-import { signupReducer } from "./signupReducer";
-import { loginReducer } from "./loginReducer.js";
-import { questionsReducer } from "./questionsReducer.js";
+import { questionsReducer } from "./questionsReducer";
 
 export default combineReducers({
-  signupReducer,
+  authReducer,
   userReducer,
-  loginReducer,
   questionsReducer
 });

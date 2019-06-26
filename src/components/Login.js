@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/actionCreators.js";
-import Loader from "react-loader-spinner";
 
 function Login(props) {
   const [state, changeState] = useState({
@@ -12,45 +11,45 @@ function Login(props) {
 
   const submitLogin = event => {
     event.preventDefault();
-    props.loginUser({
-      email: state.email,
-      password: state.password
-    });
-    changeState({ ...state, password: "" });
+    props.loginUser(state);
+    // changeState({ ...state, password: "" });
   };
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      return <Redirect to="/home" />;
+    }
+  });
 
-  if (localStorage.getItem("token")) {
-    return <Redirect to="/home" />;
-  } else {
-    return (
-      <div>
-        <form onSubmit={submitLogin}>
-          <input
-            type="email"
-            placeholder="Enter Email"
-            onChange={e => changeState({ ...state, email: e.target.value })}
-          />
-          <input
-            type="password"
-            placeholder="Enter Password"
-            onChange={e => changeState({ ...state, password: e.target.value })}
-          />
-          <input type="submit">
-            {props.isLoggingIn ? "Loading..." : "LOGIN"}
-          </input>
-          {!props.loginSuccess && (
-            <div>Wrong email or password, please try again</div>
-          )}
-        </form>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <form onSubmit={submitLogin}>
+        <input
+          type="email"
+          placeholder="Enter Email"
+          value={state.email}
+          onChange={e => changeState({ ...state, email: e.target.value })}
+        />
+        <input
+          type="password"
+          placeholder="Enter Password"
+          value={state.password}
+          onChange={e => changeState({ ...state, password: e.target.value })}
+        />
+        <input type="submit"
+          value={props.loading ? "Loading..." : "LOGIN"}
+        />
+        {props.error && (
+          <div>Wrong email or password, please try again</div>
+        )}
+      </form>
+    </div>
+  );
 }
 
 function mapStatetoProps(state) {
   return {
-    isLoggingIn: state.loginReducer.isLoggingIn,
-    loginSuccess: state.loginReducer.loginSuccess
+    loading: state.authReducer.loading,
+    error: state.authReducer.error
   };
 }
 

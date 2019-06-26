@@ -26,6 +26,7 @@ export default class MentorMe extends Component {
         <Route path="/signup" render={props => <Signup {...props} />} />
         <Route path="/login" component={Login} />
         <Route path="/home" component={Homepage} />
+        <Route path="/question/:id" render={props => <Question id={props.id}} />
       </div>
     );
   }

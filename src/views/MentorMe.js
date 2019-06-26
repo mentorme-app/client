@@ -4,7 +4,6 @@ import Signup from "../components/Signup";
 import UserProfile from "../components/UserProfile";
 import Login from "../components/Login";
 import Homepage from "../components/Homepage";
-import { Route, Redirect } from "react-router-dom";
 import Question from "../components/Question";
 import UserEdit from "../components/UserEdit";
 
@@ -32,7 +31,7 @@ export default class MentorMe extends Component {
         <Route path="/question/:id" render={props => <Question {...props} />} />
         <Route
           path="/conversation/:id"
-          render={props => <Conversation {...props} />}
+          render={props => {/* <Conversation {...props} 7>*/} }
         />
       </div>
     );

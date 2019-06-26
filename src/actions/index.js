@@ -1,4 +1,17 @@
-export {signup, userProfile, fetchQuestions} from './actionCreators'
+export {
+  signup,
+  loginUser,
+  userProfile,
+  editCred,
+  fetchQuestions
+} from "./actionCreators";
 
-
-export {SIGNUP_LOAD,SIGNUP_SUCCESS, SIGNUP_FAILURE, USER_LOAD, USER_SUCCESS, USER_FAILURE } from './actionTypes';
+export {
+  AUTH_LOAD,
+  AUTH_SUCCESS,
+  AUTH_FAILURE,
+  USER_LOAD,
+  USER_SUCCESS,
+  USER_EDIT,
+  USER_FAILURE
+} from "./actionTypes";

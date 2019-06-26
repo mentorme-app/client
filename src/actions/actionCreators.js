@@ -1,10 +1,11 @@
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 import * as types from "./actionTypes";
 
 export const signup = userData => dispatch => {
   const { username, email, password } = userData;
-  dispatch(startSignup());
-  axios
+  dispatch(authSignup());
+  return axios
     .post("https://mentor-me-backend.herokuapp.com/api/auth/register", {
       username,
       email,
@@ -12,17 +13,32 @@ export const signup = userData => dispatch => {
     })
     .then(res => {
       localStorage.setItem("token", res.data.token);
-      dispatch(signUpSuccess(res.data.token));
+      const user = jwtDecode(res.data.token);
+      dispatch(authSuccess(user.subject));
     })
     .catch(err => {
-      dispatch(signUpFail(err.message));
+      dispatch(authFail(err.response.data.message));
     });
 };
 
-export const userProfile = () => dispatch => {
+export const loginUser = user => dispatch => {
+  dispatch(authSignup());
+  return axios
+    .post("https://mentor-me-backend.herokuapp.com/api/auth/login", user)
+    .then(res => {
+      localStorage.setItem("token", res.data.token);
+      const user = jwtDecode(res.data.token);
+      dispatch(authSuccess(user.subject));
+    })
+    .catch(err => {
+      dispatch(authFail(err.response.data.message));
+    });
+};
+
+export const userProfile = id => dispatch => {
   dispatch(userLoad());
   axios
-    .get("https://mentor-me-backend.herokuapp.com/api/user")
+    .get(`https://mentor-me-backend.herokuapp.com/api/user/${id}`)
     .then(res => {
       dispatch(userSuccess(res.data));
     })
@@ -31,74 +47,36 @@ export const userProfile = () => dispatch => {
     });
 };
 
-export function loginUser(user) {
-  return dispatch => {
-    dispatch(startLogin());
-    axios
-      .post("https://mentor-me-backend.herokuapp.com/api/auth/login", user)
-      .then(res => {
-        dispatch(login(res.data));
-        dispatch(successLogin());
-      })
-      .catch(err => {
-        dispatch(failureLogin());
-      })
-      .finally(dispatch(endLogin()));
-  };
-}
-
-
+export const editCred = (id, cred) => dispatch => {
+  dispatch(userLoad());
+  axios
+    .put(`https://mentor-me-backend.herokuapp.com/api/user/${id}`, cred)
+    .then(res => {
+      dispatch(userEdit(res.data));
+    })
+    .catch(err => {
+      dispatch(userFail(err.message));
+    });
+};
 
 // SIGN UP ACTION TYPES
-export function startSignup() {
+export function authSignup() {
   return {
-    type: types.SIGNUP_LOAD,
+    type: types.AUTH_LOAD
   };
 }
 
-export function signUpSuccess(payload) {
+export function authSuccess(user) {
   return {
-    type: types.SIGNUP_SUCCESS,
+    type: types.AUTH_SUCCESS,
+    payload: user
+  };
+}
+
+export function authFail(payload) {
+  return {
+    type: types.AUTH_FAILURE,
     payload: payload
-  };
-}
-
-export function signUpFail(payload) {
-  return {
-    type: types.SIGNUP_FAILURE,
-    payload: payload
-  };
-}
-
-// LOGIN ACTION TYPES
-export function login(payload) {
-  return {
-    type: types.LOGIN,
-    payload: payload
-  };
-}
-
-export function failureLogin() {
-  return {
-    type: types.FAILURE_LOGIN
-  };
-}
-
-export function successLogin() {
-  return {
-    type: types.SUCCESS_LOGIN
-  };
-}
-
-export function startLogin() {
-  return {
-    type: types.START_LOGIN
-  };
-}
-
-export function endLogin() {
-  return {
-    type: types.END_LOGIN
   };
 }
 
@@ -106,13 +84,20 @@ export function endLogin() {
 
 export function userLoad() {
   return {
-    type: types.USER_LOAD,
+    type: types.USER_LOAD
   };
 }
 
 export function userSuccess(payload) {
   return {
     type: types.USER_SUCCESS,
+    payload: payload
+  };
+}
+
+export function userEdit(payload) {
+  return {
+    type: types.USER_EDIT,
     payload: payload
   };
 }

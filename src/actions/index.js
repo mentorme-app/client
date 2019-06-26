@@ -1,4 +1,10 @@
-export { signup, loginUser, userProfile, editCred } from "./actionCreators";
+export {
+  signup,
+  loginUser,
+  userProfile,
+  editCred,
+  fetchQuestions
+} from "./actionCreators";
 
 export {
   AUTH_LOAD,

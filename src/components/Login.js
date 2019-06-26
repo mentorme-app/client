@@ -1,45 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/actionCreators.js";
-import Loader from "react-loader-spinner";
 
 function Login(props) {
-  const refEmail = React.createRef();
-  const refPassword = React.createRef();
+  const [state, changeState] = useState({
+    email: "",
+    password: ""
+  });
 
   const submitLogin = event => {
     event.preventDefault();
-    props.loginUser({
-      email: refEmail.current.value,
-      password: refPassword.current.value
-    })
-    // .then(() => props.history.push('/profile'))
-    refPassword.current.value = "";
+    props.loginUser(state);
+    // changeState({ ...state, password: "" });
   };
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      return <Redirect to="/home" />;
+    }
+  });
 
-  if (localStorage.getItem("token")) {
-    return <Redirect to="/home" />;
-  } else {
-    return (
-      <div>
-        <form onSubmit={submitLogin}>
-          <input type="email" placeholder="Enter Email" ref={refEmail} />
-          <input type="password" placeholder="Enter Password" ref={refPassword} />
-          <button type="submit">
-            {props.signingUp ? (
-              <Loader type="ThreeDots" color="#ccc" height={80} width={80} />
-            ) : (
-              "Log In"
-            )}
-          </button>
-          {props.error && (
-            <div>Wrong email or password, please try again</div>
-          )}
-        </form>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <form onSubmit={submitLogin}>
+        <input
+          type="email"
+          placeholder="Enter Email"
+          value={state.email}
+          onChange={e => changeState({ ...state, email: e.target.value })}
+        />
+        <input
+          type="password"
+          placeholder="Enter Password"
+          value={state.password}
+          onChange={e => changeState({ ...state, password: e.target.value })}
+        />
+        <input type="submit"
+          value={props.loading ? "Loading..." : "LOGIN"}
+        />
+        {props.error && (
+          <div>Wrong email or password, please try again</div>
+        )}
+      </form>
+    </div>
+  );
 }
 
 function mapStatetoProps(state) {

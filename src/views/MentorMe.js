@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import { Route, Redirect } from "react-router-dom";
 import Signup from "../components/Signup";
 import UserProfile from "../components/UserProfile";
 import Login from "../components/Login";
-import { Route, Redirect } from "react-router-dom";
+import UserEdit from "../components/UserEdit";
 
 export default class MentorMe extends Component {
   //   constructor(props) {
@@ -23,9 +24,11 @@ export default class MentorMe extends Component {
             )
           }
         />
-        <Route path="/profile" component={UserProfile} />
+        <Route path="/profile" render={props => <UserProfile {...props} />} />
         <Route path="/signup" render={props => <Signup {...props} />} />
         <Route path="/login" component={Login} />
+        <Route path="/edit-profile" component={UserEdit} />
+
       </div>
     );
   }

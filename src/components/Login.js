@@ -13,7 +13,8 @@ function Login(props) {
     props.loginUser({
       email: refEmail.current.value,
       password: refPassword.current.value
-    });
+    })
+    // .then(() => props.history.push('/profile'))
     refPassword.current.value = "";
   };
 
@@ -32,7 +33,7 @@ function Login(props) {
               "Log In"
             )}
           </button>
-          {!props.loginSuccess && (
+          {props.error && (
             <div>Wrong email or password, please try again</div>
           )}
         </form>
@@ -43,8 +44,8 @@ function Login(props) {
 
 function mapStatetoProps(state) {
   return {
-    isLoggingIn: state.loginReducer.isLoggingIn,
-    loginSuccess: state.loginReducer.loginSuccess
+    loading: state.authReducer.loading,
+    error: state.authReducer.error
   };
 }
 

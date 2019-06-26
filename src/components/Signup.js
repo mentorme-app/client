@@ -15,7 +15,8 @@ const Signup = props => {
   const userSignup = e => {
     e.preventDefault();
 
-    props.signup(userData);
+    props.signup(userData)
+    // .then(() => props.history.push('/profile'))
   };
 
   useEffect(() => {
@@ -62,7 +63,8 @@ const Signup = props => {
 };
 
 const mapStateToProps = state => ({
-  signingUp: state.signupReducer.signingUp
+  loading: state.authReducer.loading,
+  error: state.authReducer.error
 });
 
 export default connect(

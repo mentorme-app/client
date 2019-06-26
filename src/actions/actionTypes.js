@@ -17,3 +17,4 @@ export const END_LOGIN = "END_LOGIN";
 
 //Question
 export const QUESTIONS_SUCCESS = "QUESTIONS_SUCCESS";
+/* export const QUESTION_SUCCESS = "QUESTION_SUCCESS"; */

@@ -7,6 +7,8 @@ import Homepage from "../components/Homepage";
 import Question from "../components/Question";
 import UserEdit from "../components/UserEdit";
 import Conversation from "../components/Conversation";
+import UserChats from "../components/UserChats";
+
 
 export default class MentorMe extends Component {
   render() {
@@ -19,7 +21,7 @@ export default class MentorMe extends Component {
             localStorage.getItem("token") ? (
               <Redirect to="/home" />
             ) : (
-              <Redirect to="/signup" />
+              <Redirect to="/login" />
             )
           }
         />
@@ -33,6 +35,7 @@ export default class MentorMe extends Component {
           path="/conversation/:questionid/:authorid"
           render={props => <Conversation {...props} />}
         />
+        <Route path="/chats" component={UserChats} />
       </div>
     );
   }

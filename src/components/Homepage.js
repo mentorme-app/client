@@ -45,8 +45,14 @@ function Homepage(props) {
 
   const [questionsData, setQuestions] = useState([]);
 
-  useEffect(() => fetchQuestions(), [fetchQuestions])
   useEffect(() => fetchTags());
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      props.history.push('/login')
+    }
+  });
+
+  useEffect(fetchQuestions, []);
   useEffect(() => setQuestions(questions), [questions]);
 
   const SearchHandler = e => {
@@ -124,7 +130,6 @@ function Homepage(props) {
         return (
           <StyledLink key={question.id} to={`/question/${question.id}`}>
             <StyledQuestionCard
-              key={question.id}
               image={question.author.avatar}
             >
               <h1>{question.author.username}</h1>

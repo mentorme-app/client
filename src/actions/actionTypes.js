@@ -23,3 +23,6 @@ export const STORE_MESSAGES = "STORE_MESSAGES";
 
 //Tags
 export const TAGS_SUCCESS = "TAGS_SUCCESS";
+
+//Chats
+export const CHATS_ID = "CHATS_ID";

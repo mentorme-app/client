@@ -40,7 +40,6 @@ export const StyledSearchBar = styled.div`
     background: none;
     border: none;
     border-bottom: 1px solid #5887f9;
-    ${"" /* border-radius: 0.2rem; */}
     color: #5887f9;
     text-align: center;
     ::-webkit-input-placeholder {
@@ -133,7 +132,7 @@ export const StyledFooter = styled.footer`
   }
 `;
 
-export const SignupModal = styled.div`
+export const FormModal = styled.div`
   animation: ${props => (props.display ? fadeIn : fadeOut)} 0.3s linear;
   display: ${props => props.display};
   position: fixed;
@@ -141,8 +140,9 @@ export const SignupModal = styled.div`
   left: 0;
   top: 0;
   width: 100%;
-  height: 812px;
+  height: 100%;
   overflow: auto;
+  text-align: center;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
   background-image: linear-gradient(25deg, #5574f7, #60c3ff);
@@ -184,7 +184,7 @@ export const SignupModal = styled.div`
         }
       }
 
-      button {
+      input[type="submit"] {
         background-color: #fff;
         color: #5887f9;
         padding: 1rem;
@@ -349,5 +349,35 @@ export const MessageRight = styled.div`
   p {
     padding: 0.5rem;
     text-align: center;
+  }
+`;
+
+export const StyledChat = styled.div`
+  .chatHeader {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    h2 {
+      margin:0 2rem;
+      text-align: center;
+    }
+  }
+
+  .chat {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px #4c5264 solid;
+
+    img {
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      margin: 1rem;
+    }
+
+    p {
+      font-size: 0.6rem;
+    }
   }
 `;

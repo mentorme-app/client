@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as styles from "../styled-components/styled-components";
 import { IoIosPersonAdd } from "react-icons/io";
+import { newConversation } from "../actions/actionCreators";
 
 function Question(props) {
   const [state, getQuestion] = useState({
@@ -11,10 +12,14 @@ function Question(props) {
 
   useEffect(() => {
     getQuestion({
-      question: props.questions.find(q => q.id == props.match.params.id),
+      question: props.questions.find(
+        q => q.id === parseInt(props.match.params.id)
+      ),
       isFetched: true
     });
   }, [props.questions, props.match.params.id]);
+
+  console.log(state.question);
 
   return (
     <div>
@@ -38,7 +43,14 @@ function Question(props) {
             <p>{state.question.question}</p>
           </styles.QuestionBox>
           <styles.QuestionFooter>
-            <styles.StyledLink to={`/conversation/${state.question.id}`}>
+            <styles.StyledLink
+              onClick={() => {
+                props.newConversation(props.userId, state.question.id);
+              }}
+              to={`/conversation/${state.question.id}/${
+                state.question.author.id
+              }`}
+            >
               <IoIosPersonAdd />
               <div> RESPOND</div>
             </styles.StyledLink>
@@ -52,10 +64,11 @@ function Question(props) {
 }
 
 const mapStateToProps = state => ({
-  questions: state.questionsReducer.questions
+  questions: state.questionsReducer.questions,
+  userId: state.authReducer.userId
 });
 
 export default connect(
   mapStateToProps,
-  {}
+  { newConversation }
 )(Question);

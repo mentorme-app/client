@@ -6,7 +6,7 @@ import Login from "../components/Login";
 import Homepage from "../components/Homepage";
 import Question from "../components/Question";
 import UserEdit from "../components/UserEdit";
-
+import Conversation from "../components/Conversation";
 
 export default class MentorMe extends Component {
   render() {
@@ -30,8 +30,8 @@ export default class MentorMe extends Component {
         <Route path="/home" component={Homepage} />
         <Route path="/question/:id" render={props => <Question {...props} />} />
         <Route
-          path="/conversation/:id"
-          render={props => {/* <Conversation {...props} 7>*/} }
+          path="/conversation/:questionid/:authorid"
+          render={props => <Conversation {...props} />}
         />
       </div>
     );

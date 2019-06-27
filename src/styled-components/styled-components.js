@@ -236,3 +236,31 @@ export const QuestionFooter = styled.footer`
     font-size: 12px;
   }
 `;
+
+export const MessageHeader = styled.header`
+  background-color: white;
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: lightgrey 0.2rem solid;
+
+  div {
+    margin: 4vh;
+
+    img {
+      width: 10vh;
+      height: 10vh;
+      margin: 0 auto;
+      border: white 0.3rem solid;
+      border-radius: 25%;
+    }
+  }
+
+  h1 {
+    margin-top: 6vh;
+    color: #4C5264;
+    font-size: 16px;
+  }
+`;

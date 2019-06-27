@@ -11,4 +11,7 @@ export const USER_FAILURE = "USER_FAILURE";
 
 //Question
 export const QUESTIONS_SUCCESS = "QUESTIONS_SUCCESS";
-/* export const QUESTION_SUCCESS = "QUESTION_SUCCESS"; */
+
+//Conversation
+export const CONVERSATIONS_SUCCESS = "CONVERSATIONS_SUCCESS";
+export const ADD_CONVERSATION = "ADD_CONVERSATION";

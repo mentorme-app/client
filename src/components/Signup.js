@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import {SignupModal} from '../styled-components/styled-components'
+import {FormModal} from '../styled-components/styled-components'
 import { Link } from "react-router-dom";
 import { signup } from "../actions";
 
@@ -16,17 +16,19 @@ const Signup = props => {
     e.preventDefault();
 
     props.signup(userData)
-    // .then(() => props.history.push('/profile'))
+    .then(res => {
+      if (res.status === 201) props.history.push('/home')
+    })
   };
 
   useEffect(() => {
     if(localStorage.getItem('token')) {
-      props.history.push('/profile')
+      props.history.push('/home')
     }
   })
 
   return (
-    <SignupModal display={localStorage.getItem("token") ? "none" : "block"}>
+    <FormModal display={localStorage.getItem("token") ? "none" : "block"}>
       <div>
         <h1>Register</h1>
         <form onSubmit={userSignup}>
@@ -58,7 +60,7 @@ const Signup = props => {
           Already have an account? <Link to="/login">Login</Link>
         </span>
       </div>
-    </SignupModal>
+    </FormModal>
   );
 };
 

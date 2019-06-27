@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { fetchQuestions } from "../actions/actionCreators.js";
+
 import {
   SideNav,
   BlackLink,
@@ -32,6 +33,12 @@ function Homepage(props) {
   });
 
   const [questionsData, setQuestions] = useState([]);
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      props.history.push('/login')
+    }
+  });
 
   useEffect(() => fetchQuestions(), [fetchQuestions]);
   useEffect(() => setQuestions(questions), [questions]);
@@ -106,7 +113,6 @@ function Homepage(props) {
         return (
           <StyledLink key={question.id} to={`/question/${question.id}`}>
             <StyledQuestionCard
-              key={question.id}
               image={question.author.avatar}
             >
               <h1>{question.author.username}</h1>
@@ -123,7 +129,7 @@ function Homepage(props) {
         <BlackLink to="/chats">
           <IoIosChatbubbles />
         </BlackLink>
-        <BlackLink to="/changeProfile">
+        <BlackLink to="/edit-profile">
           <IoIosBuild />
         </BlackLink>
       </StyledFooter>

@@ -1,26 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { fetchQuestions } from "../actions/actionCreators.js";
+import {
+  fetchQuestions,
+  fetchTags,
+  submitQuestion
+} from "../actions/actionCreators.js";
 import {
   SideNav,
   BlackLink,
   StyledHeadSection,
   StyledH1,
   StyledHeader,
-  StyledSubheading,
   StyledSearchBar,
   StyledLink,
   StyledQuestionCard,
-  StyledFooter
+  AddQuestionBox,
+  StyledFooter,
+  PlusIcon,
+  MinusIcon
 } from "../styled-components/styled-components";
 import {
   IoIosSearch,
-  IoIosArrowDown,
   IoIosMenu,
   IoIosHome,
   IoIosChatbubbles,
   IoIosBuild
 } from "react-icons/io";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
 
 function Homepage(props) {
   const { questions, fetchQuestions } = props;
@@ -31,9 +38,15 @@ function Homepage(props) {
     show: false
   });
 
+  const [QuestionBox, setQuestionBox] = useState(false);
+  const [QuestionTag, setQuestionTag] = useState("");
+  const [QuestionTitle, setQuestionTitle] = useState("");
+  const [QuestionDescription, setQuestionDescription] = useState("");
+
   const [questionsData, setQuestions] = useState([]);
 
-  useEffect(() => fetchQuestions(), [fetchQuestions]);
+  useEffect(() => fetchQuestions(), [fetchQuestions])
+  useEffect(() => fetchTags());
   useEffect(() => setQuestions(questions), [questions]);
 
   const SearchHandler = e => {
@@ -52,6 +65,14 @@ function Homepage(props) {
     setQuestions(result);
   };
 
+  function submit() {
+    const tagId = props.tags.find(t => t.tag === QuestionTag).id;
+    props.submitQuestion(QuestionTitle, QuestionDescription, props.userId, tagId);
+  }
+
+  let options = [];
+  props.tags.forEach(e => (options = options.concat(e.tag)));
+
   return (
     <div>
       {state.menuBool && (
@@ -64,7 +85,7 @@ function Homepage(props) {
             <IoIosChatbubbles /> Chats
           </BlackLink>
 
-          <BlackLink to="/changeProfile">
+          <BlackLink to="/edit-profile">
             <IoIosBuild /> Change Profile
           </BlackLink>
         </SideNav>
@@ -113,6 +134,36 @@ function Homepage(props) {
           </StyledLink>
         );
       })}
+      <AddQuestionBox>
+        {!QuestionBox ? (
+          <PlusIcon onClick={() => setQuestionBox(true)} />
+        ) : (
+          <div>
+            <input
+              type="text"
+              placeholder="Question title"
+              onChange={e => {
+                setQuestionTitle(e.target.value);
+              }}
+            />
+            <input
+              type="text"
+              placeholder="Description"
+              onChange={e => {
+                setQuestionDescription(e.target.value);
+              }}
+            />
+            <Dropdown
+              options={options}
+              onChange={e => setQuestionTag(e.value)}
+              value={QuestionTag}
+              placeholder="Select tag..."
+            />
+            <input type="submit" value="Submit question" onClick={submit} />
+            <MinusIcon onClick={() => setQuestionBox(false)} />
+          </div>
+        )}
+      </AddQuestionBox>
       <StyledFooter>
         <BlackLink to="/home">
           <IoIosHome />
@@ -120,7 +171,7 @@ function Homepage(props) {
         <BlackLink to="/chats">
           <IoIosChatbubbles />
         </BlackLink>
-        <BlackLink to="/changeProfile">
+        <BlackLink to="/edit-profile">
           <IoIosBuild />
         </BlackLink>
       </StyledFooter>
@@ -129,10 +180,12 @@ function Homepage(props) {
 }
 
 const mapStateToProps = state => ({
-  questions: state.questionsReducer.questions
+  questions: state.questionsReducer.questions,
+  tags: state.tagsReducer.tags,
+  userId: state.authReducer.userId
 });
 
 export default connect(
   mapStateToProps,
-  { fetchQuestions }
+  { fetchQuestions, fetchTags, submitQuestion }
 )(Homepage);

@@ -1,28 +1,35 @@
 import {
   CONVERSATIONS_SUCCESS,
   ADD_CONVERSATION,
+  CONV_BY_ID_SUCCESS
 } from "../actions/actionTypes";
 
 const initialState = {
   conversations: [],
-  questionId: "",
+  conv: {},
   wasFetched: false,
-  rightAvatar: ""
+  convWasFetched: false
 };
 
 export const conversationsReducer = (state = initialState, action) => {
   switch (action.type) {
     case CONVERSATIONS_SUCCESS:
       return {
+        ...state,
+        wasFetched: true,
         conversations: action.payload,
-        questionId: action.payload[0].question_id,
-        wasFetched: true
+        convWasFetched: false
       };
     case ADD_CONVERSATION:
       return {
-        conversations: state.conversations.concat(action.payload),
-        questionId: state.conversations[0].question_id,
-        wasFetched: true
+        ...state,
+        wasFetched: true,
+        conversations: state.conversations.concat(action.payload)
+      };
+    case CONV_BY_ID_SUCCESS:
+      return {
+        ...state,
+        conv: action.payload
       };
     default:
       return state;

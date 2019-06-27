@@ -1,4 +1,5 @@
-import { QUESTIONS_SUCCESS/*, QUESTION_SUCCESS */ } from "../actions/actionTypes";
+import { QUESTIONS_SUCCESS,/*, QUESTION_SUCCESS */ 
+STORE_QUESTION} from "../actions/actionTypes";
 
 const initialState = {
   questions: []
@@ -8,13 +9,12 @@ export const questionsReducer = (state = initialState, action) => {
   switch (action.type) {
     case QUESTIONS_SUCCESS:
       return {
-        ...state,
         questions: action.payload
       };
-    /* case QUESTION_SUCCESS:
+    case STORE_QUESTION:
       return {
         questions: [state.questions, action.payload]
-      }; */
+      };
     default:
       return state;
   }

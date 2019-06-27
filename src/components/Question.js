@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as styles from "../styled-components/styled-components";
 import { IoIosPersonAdd } from "react-icons/io";
-import { newConversation } from "../actions/actionCreators";
+import { newConversation, fetchConversations } from "../actions/actionCreators";
+
 
 function Question(props) {
   const [state, getQuestion] = useState({
     question: {},
     isFetched: false
   });
+
+  
 
   useEffect(() => {
     getQuestion({
@@ -18,6 +21,10 @@ function Question(props) {
       isFetched: true
     });
   }, [props.questions, props.match.params.id]);
+
+  useEffect(()=> props.fetchConversations(state.question.id));
+
+  
 
   return (
     <div>
@@ -30,7 +37,7 @@ function Question(props) {
                 src={
                   state.question.author.avatar !== null
                     ? state.question.author.avatar
-                    : "../images/ask-blackboard-356079.jpg"
+                    : "https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
                 }
                 alt="author avatar"
               />
@@ -43,7 +50,7 @@ function Question(props) {
           <styles.QuestionFooter>
             <styles.StyledLink
               onClick={() => {
-                props.newConversation(props.userId, state.question.id);
+                props.newConversation(props.userId, props.match.params.id);
               }}
               to={`/conversation/${state.question.id}/${
                 state.question.author.id
@@ -68,5 +75,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { newConversation }
+  { newConversation, fetchConversations }
 )(Question);

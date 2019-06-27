@@ -1,6 +1,9 @@
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
-import img from "../images/ask-blackboard-356079.jpg";
+import {
+  IoIosAddCircleOutline,
+  IoIosRemoveCircleOutline
+} from "react-icons/io";
 
 export const StyledHeadSection = styled.section`
   display: flex;
@@ -51,16 +54,15 @@ export const StyledSearchBar = styled.div`
 `;
 
 export const StyledQuestionCard = styled.div`
-  background-image: url(${props => (props.image ? props.image : img)});
+  background-image: url(${props => (props.image ? props.image : "https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80")});
   background-repeat: no-repeat;
   background-size: cover;
-  height: 70vw;
+  height: 50vw;
   display: flex;
   text-align: center;
   flex-direction: column;
   justify-content: flex-end;
 
-  
   h1 {
     font-size: 24px;
     text-decoration: none;
@@ -76,12 +78,41 @@ export const StyledQuestionCard = styled.div`
   }
 
   p {
-    margin: 1rem 0 1rem 0;
+    margin: 1rem 0 3vw 0;
     text-decoration: none;
     color: white;
     font-size: 0.9rem;
-    font-family: "Helvetica Neue";
   }
+`;
+
+export const AddQuestionBox = styled.div`
+  width: 100%;
+  height: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 36px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+export const PlusIcon = styled(IoIosAddCircleOutline)`
+  color: #5574f7;
+  height: 5vh;
+  width: 5vh;
+  padding: 36px;
+`;
+
+export const MinusIcon = styled(IoIosRemoveCircleOutline)`
+  color: #5574f7;
+  height: 5vh;
+  width: 5vh;
+  padding: 36px;
 `;
 
 export const StyledFooter = styled.footer`
@@ -279,7 +310,7 @@ export const MessageHeader = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-bottom: #E2E8ED 0.1rem solid;
+  border-bottom: #e2e8ed 0.1rem solid;
 
   div {
     margin: 4vh;
@@ -300,25 +331,23 @@ export const MessageHeader = styled.header`
   }
 `;
 
-export const MessageMox= styled.section`
+export const MessageMox = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+`;
 
-
-`
-
-export const MessageLeft= styled.div`
-  border: 0.1rem solid #E2E8ED;
+export const MessageLeft = styled.div`
+  border: 0.1rem solid #e2e8ed;
   align-self: flex-start;
-`
+`;
 
-export const MessageRight= styled.div`
-  border: 0.1rem solid #5574F7;
+export const MessageRight = styled.div`
+  border: 0.1rem solid #5574f7;
   background-color: linear-gradient(25deg, #5574f7, #60c3ff);
 
-  p{
+  p {
     padding: 0.5rem;
     text-align: center;
   }
-`
+`;

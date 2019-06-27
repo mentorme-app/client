@@ -68,24 +68,8 @@ export const fetchQuestions = () => dispatch => {
     .catch(err => {});
 };
 
-/* export const fetchQuestion = (id) => dispatch => {
-    axios
-      .get(`https://mentor-me-backend.herokuapp.com/api/questions/${id}`)
-      .then(res => {
-        dispatch(questionSuccess(res.data))
-      })
-      .catch(err => {
-      });
-  };
-  
-  export function questionSuccess(payload){
-    return {
-      type: types.QUESTION_SUCCESS,
-      payload: payload
-    }
-  } */
-
 // SIGN UP ACTION TYPES
+
 export function authSignup() {
   return {
     type: types.AUTH_LOAD
@@ -135,15 +119,7 @@ export function userFail(payload) {
   };
 }
 
-// QUESTIONS ACTIONS
-/* export const fetchQuestions = () => dispatch => {
-  axios
-    .get("https://mentor-me-backend.herokuapp.com/api/questions")
-    .then(res => {
-      dispatch(questionsSuccess(res.data));
-    })
-    .catch(err => {});
-}; */
+// QUESTION ACTIONS
 
 export function questionsSuccess(payload) {
   return {
@@ -152,9 +128,37 @@ export function questionsSuccess(payload) {
   };
 }
 
+export const submitQuestion = (
+  title,
+  question,
+  author_id,
+  tag_id
+) => dispatch => {
+  axios
+    .post(`https://mentor-me-backend.herokuapp.com/api/questions`, {
+      title,
+      question,
+      author_id,
+      tag_id
+    })
+    .then(res => {
+      dispatch(storeQuestion(res.data));
+    })
+    .catch(err => {
+    });
+};
+
+export const storeQuestion = payload => {
+  return {
+    type: types.STORE_QUESTION,
+    payload: payload
+  };
+};
+
 //CONVERSATION ACTIONS
 
-export const fetchConversations = questionId => dispatch => {
+export const fetchConversations = (questionId) => dispatch => {
+
   axios
     .get(
       `https://mentor-me-backend.herokuapp.com/api/conversations?qid=${questionId}`
@@ -165,11 +169,30 @@ export const fetchConversations = questionId => dispatch => {
     .catch(err => {});
 };
 
+export const fetchConvById = questionId => dispatch => {
+  axios
+    .get(
+      `https://mentor-me-backend.herokuapp.com/api/conversations/${questionId}`
+    )
+    .then(res => {
+      debugger;
+      dispatch(convByIdSuccess(res.data));
+    })
+    .catch(err => {});
+};
+
 export function conversationsSuccess(payload) {
   return {
     type: types.CONVERSATIONS_SUCCESS,
     payload: payload
   };
+}
+
+export function convByIdSuccess(payload){
+  return {
+    type: types.CONV_BY_ID_SUCCESS,
+    payload: payload
+  }
 }
 
 export const newConversation = (mentorId, questionId) => dispatch => {
@@ -182,13 +205,31 @@ export const newConversation = (mentorId, questionId) => dispatch => {
     .then(res => {
       dispatch(addConversation(res.data));
     })
-    .catch(err => {
-    });
+    .catch(err => {});
 };
 
 export function addConversation(data) {
+  debugger;
   return {
     type: types.ADD_CONVERSATION,
     payload: data
   };
 }
+
+//Tags
+
+export const fetchTags = () => dispatch => {
+  axios
+    .get("https://mentor-me-backend.herokuapp.com/api/tags")
+    .then(res => {
+      dispatch(tagsSuccess(res.data));
+    })
+    .catch(err => {});
+};
+
+export const tagsSuccess = payload => {
+  return {
+    type: types.TAGS_SUCCESS,
+    payload: payload
+  };
+};

@@ -119,17 +119,6 @@ export const fetchQuestions = () => dispatch => {
     .catch(err => {
     });
 };
-/* export const userProfile = () => dispatch => {
-  dispatch(userLoad());
-  axios
-    .get("https://mentor-me-backend.herokuapp.com/api/user")
-    .then(res => {
-      dispatch(userSuccess(res.data));
-    })
-    .catch(err => {
-      dispatch(userFail(err.message));
-    });
-}; */
 
 export function questionsSuccess(payload){
     return {
@@ -137,3 +126,20 @@ export function questionsSuccess(payload){
       payload: payload
     }
 }
+
+/* export const fetchQuestion = (id) => dispatch => {
+  axios
+    .get(`https://mentor-me-backend.herokuapp.com/api/questions/${id}`)
+    .then(res => {
+      dispatch(questionSuccess(res.data))
+    })
+    .catch(err => {
+    });
+};
+
+export function questionSuccess(payload){
+  return {
+    type: types.QUESTION_SUCCESS,
+    payload: payload
+  }
+} */

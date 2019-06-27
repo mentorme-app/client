@@ -172,6 +172,67 @@ export const SideNav = styled.nav`
   width: 30%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start
+  align-items: flex-start;
+`;
 
+export const StyledQuestionHeader = styled.header`
+  background-color: #5574f7;
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  div {
+    margin: 6.5vh;
+
+    img {
+      width: 20vh;
+      height: 20vh;
+      margin: 0 auto;
+      border: white 0.3rem solid;
+      border-radius: 25%;
+    }
+  }
+
+  h1 {
+    margin-top: 6vh;
+    color: white;
+    font-size: 20px;
+  }
+`;
+
+export const QuestionBox = styled.div`
+  margin: 20vh 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  h1 {
+    color: #5887f9;
+    font-size: 20px;
+    margin: 1rem 0;
+  }
+
+  p {
+    font-size: 16px;
+  }
+`;
+
+export const QuestionFooter = styled.footer`
+  background-color: #5574f7;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 15vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+
+  div {
+    text-align: center;
+    font-size: 12px;
+  }
 `;

@@ -11,3 +11,6 @@ export const USER_FAILURE = "USER_FAILURE";
 
 //Question
 export const QUESTIONS_SUCCESS = "QUESTIONS_SUCCESS";
+
+//Chats
+export const CHATS_ID = "CHATS_ID";

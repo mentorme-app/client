@@ -15,9 +15,11 @@ export const signup = userData => dispatch => {
       localStorage.setItem("token", res.data.token);
       const user = jwtDecode(res.data.token);
       dispatch(authSuccess(user.subject));
+      return res;
     })
     .catch(err => {
       dispatch(authFail(err.response.data.message));
+      return err;
     });
 };
 
@@ -29,9 +31,11 @@ export const loginUser = user => dispatch => {
       localStorage.setItem("token", res.data.token);
       const user = jwtDecode(res.data.token);
       dispatch(authSuccess(user.subject));
+      return res;
     })
     .catch(err => {
       dispatch(authFail(err.response.data.message));
+      return err;
     });
 };
 
@@ -40,6 +44,7 @@ export const userProfile = id => dispatch => {
   axios
     .get(`https://mentor-me-backend.herokuapp.com/api/user/${id}`)
     .then(res => {
+      console.log(res)
       dispatch(userSuccess(res.data));
     })
     .catch(err => {
@@ -84,6 +89,16 @@ export const fetchQuestions = () => dispatch => {
       payload: payload
     }
   } */
+
+export const fetchUserChats = id => dispatch => {
+  axios
+    .get(`https://mentor-me-backend.herokuapp.com/api/conversations/user/${id}`)
+    .then(res => {
+      console.log(res.data);
+      dispatch(userChatIds(res.data));
+    })
+    .catch(err => console.log(err))
+};
 
 // SIGN UP ACTION TYPES
 export function authSignup() {
@@ -138,6 +153,13 @@ export function userFail(payload) {
 export function questionsSuccess(payload) {
   return {
     type: types.QUESTIONS_SUCCESS,
+    payload: payload
+  };
+}
+
+export function userChatIds(payload) {
+  return {
+    type: types.CHATS_ID,
     payload: payload
   };
 }

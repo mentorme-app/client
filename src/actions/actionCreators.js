@@ -63,11 +63,27 @@ export const fetchQuestions = () => dispatch => {
   axios
     .get("https://mentor-me-backend.herokuapp.com/api/questions")
     .then(res => {
-      dispatch(questionsSuccess(res.data))
+      dispatch(questionsSuccess(res.data));
     })
-    .catch(err => {
-    });
-}
+    .catch(err => {});
+};
+
+/* export const fetchQuestion = (id) => dispatch => {
+    axios
+      .get(`https://mentor-me-backend.herokuapp.com/api/questions/${id}`)
+      .then(res => {
+        dispatch(questionSuccess(res.data))
+      })
+      .catch(err => {
+      });
+  };
+  
+  export function questionSuccess(payload){
+    return {
+      type: types.QUESTION_SUCCESS,
+      payload: payload
+    }
+  } */
 
 // SIGN UP ACTION TYPES
 export function authSignup() {
@@ -119,9 +135,9 @@ export function userFail(payload) {
   };
 }
 
-export function questionsSuccess(payload){
-    return {
-      type: types.QUESTIONS_SUCCESS,
-      payload: payload
-    }
+export function questionsSuccess(payload) {
+  return {
+    type: types.QUESTIONS_SUCCESS,
+    payload: payload
+  };
 }

@@ -13,5 +13,6 @@ export {
   USER_LOAD,
   USER_SUCCESS,
   USER_EDIT,
-  USER_FAILURE
+  USER_FAILURE,
+  QUESTIONS_SUCCESS
 } from "./actionTypes";

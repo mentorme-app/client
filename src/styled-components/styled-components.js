@@ -20,7 +20,6 @@ export const StyledHeader = styled.header`
 export const StyledH1 = styled.h1`
   color: #5887f9;
   font-size: 20px;
-  font-family: Gibson;
 `;
 
 export const StyledSubheading = styled.h1`
@@ -28,42 +27,76 @@ export const StyledSubheading = styled.h1`
   text-align: center;
 `;
 
+export const StyledSearchBar = styled.div`
+  margin: 0 auto;
+  text-align: center;
+  font-size: 0.7rem;
+  input {
+    margin: 0.5rem 0rem;
+    padding: 0.5rem;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #5887f9;
+    ${"" /* border-radius: 0.2rem; */}
+    color: #5887f9;
+    text-align: center;
+    ::-webkit-input-placeholder {
+      color: #5887f9;
+      font-size: 0.7rem;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+`;
+
 export const StyledQuestionCard = styled.div`
   background-image: url(${props => (props.image ? props.image : img)});
   background-repeat: no-repeat;
   background-size: cover;
-  height: 50vw;
+  height: 70vw;
   display: flex;
+  text-align: center;
   flex-direction: column;
   justify-content: flex-end;
-
+  pointer: cursor;
   h1 {
     font-size: 24px;
-    text-align: center;
     text-decoration: none;
     color: white;
     margin: 0;
   }
 
-  h2 {
+  h3 {
     margin: 0;
     font-size: 16px;
-    color: grey;
+    color: #616161;
+    text-shadow: #e0e0e0 1px 1px 0;
   }
 
   p {
     margin: 1rem 0 1rem 0;
     text-decoration: none;
     color: white;
+    font-size: 0.7rem;
+    font-family: "Helvetica Neue";
   }
 `;
 
 export const StyledFooter = styled.footer`
+  background-image: linear-gradient(25deg, #5574f7, #60c3ff);
   display: flex;
+  padding: 0.5rem;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  margin: 1rem 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  a {
+    color: #fff;
+  }
 `;
 
 export const SignupModal = styled.div`

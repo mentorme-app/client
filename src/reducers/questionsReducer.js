@@ -8,6 +8,7 @@ export const questionsReducer = (state = initialState, action) => {
   switch (action.type) {
     case QUESTIONS_SUCCESS:
       return {
+        ...state,
         questions: action.payload
       };
     default:

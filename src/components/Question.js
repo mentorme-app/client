@@ -11,7 +11,7 @@ function Question(props) {
 
   useEffect(() => {
     getQuestion({
-      question: props.questions.find(q => q.id == props.match.params.id),
+      question: props.questions.find(q => q.id === JSON.parse(props.match.params.id)),
       isFetched: true
     });
   }, [props.questions, props.match.params.id]);

@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchUserChats, signup, loginUser } from "../actions";
+import { fetchUserChats, fetchQuestions } from "../actions";
 import { BlackLink, StyledChat } from "../styled-components/styled-components";
 import { IoIosArrowBack } from "react-icons/io";
 
 const UserChats = props => {
-  const { fetchUserChats, userId, chats } = props;
+  const { fetchQuestions, fetchUserChats, userId, chats } = props;
 
   useEffect(() => {
+    fetchQuestions();
     fetchUserChats(userId);
-  }, [fetchUserChats, userId]);
+  }, [fetchQuestions, fetchUserChats, userId]);
 
   return (
     <StyledChat>
@@ -56,5 +57,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { signup, loginUser, fetchUserChats }
+  { fetchQuestions, fetchUserChats }
 )(UserChats);

@@ -44,7 +44,6 @@ export const userProfile = id => dispatch => {
   axios
     .get(`https://mentor-me-backend.herokuapp.com/api/user/${id}`)
     .then(res => {
-      console.log(res)
       dispatch(userSuccess(res.data));
     })
     .catch(err => {
@@ -94,10 +93,9 @@ export const fetchUserChats = id => dispatch => {
   axios
     .get(`https://mentor-me-backend.herokuapp.com/api/conversations/user/${id}`)
     .then(res => {
-      console.log(res.data);
       dispatch(userChatIds(res.data));
     })
-    .catch(err => console.log(err))
+    .catch(err => {})
 };
 
 // SIGN UP ACTION TYPES

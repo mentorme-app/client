@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { fetchQuestions } from "../actions/actionCreators.js";
+import { fetchQuestions } from "../actions";
 
 import {
   SideNav,
@@ -40,7 +40,7 @@ function Homepage(props) {
     }
   });
 
-  useEffect(() => fetchQuestions(), [fetchQuestions]);
+  useEffect(fetchQuestions, []);
   useEffect(() => setQuestions(questions), [questions]);
 
   const SearchHandler = e => {

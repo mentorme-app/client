@@ -3,7 +3,8 @@ export {
   loginUser,
   userProfile,
   editCred,
-  fetchQuestions
+  fetchQuestions,
+  fetchUserChats
 } from "./actionCreators";
 
 export {

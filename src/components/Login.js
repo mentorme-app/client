@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
+import {FormModal} from '../styled-components/styled-components'
 import { loginUser } from "../actions/actionCreators.js";
 
 function Login(props) {
@@ -11,8 +12,10 @@ function Login(props) {
 
   const submitLogin = event => {
     event.preventDefault();
-    props.loginUser(state);
-    // changeState({ ...state, password: "" });
+    props.loginUser(state)
+    .then(res => {
+      if (res.status === 200) props.history.push('/home')
+    })
   };
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -21,7 +24,9 @@ function Login(props) {
   });
 
   return (
+    <FormModal display={localStorage.getItem("token") ? "none" : "block"}>
     <div>
+    <h1>Log In</h1>
       <form onSubmit={submitLogin}>
         <input
           type="email"
@@ -42,7 +47,11 @@ function Login(props) {
           <div>Wrong email or password, please try again</div>
         )}
       </form>
-    </div>
+      <span>
+          Don't have an account? <Link to="/signup">Sign Up</Link>
+        </span>
+      </div>
+    </FormModal>
   );
 }
 

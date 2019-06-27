@@ -1,11 +1,13 @@
 import {
   CONVERSATIONS_SUCCESS,
-  ADD_CONVERSATION
+  ADD_CONVERSATION,
 } from "../actions/actionTypes";
 
 const initialState = {
   conversations: [],
-  wasFetched: false
+  questionId: "",
+  wasFetched: false,
+  rightAvatar: ""
 };
 
 export const conversationsReducer = (state = initialState, action) => {
@@ -13,12 +15,13 @@ export const conversationsReducer = (state = initialState, action) => {
     case CONVERSATIONS_SUCCESS:
       return {
         conversations: action.payload,
+        questionId: action.payload[0].question_id,
         wasFetched: true
       };
     case ADD_CONVERSATION:
-        debugger;
       return {
         conversations: state.conversations.concat(action.payload),
+        questionId: state.conversations[0].question_id,
         wasFetched: true
       };
     default:

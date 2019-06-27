@@ -13,7 +13,7 @@ export const StyledHeadSection = styled.section`
 export const StyledHeader = styled.header`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
 `;
 
@@ -59,7 +59,8 @@ export const StyledQuestionCard = styled.div`
   text-align: center;
   flex-direction: column;
   justify-content: flex-end;
-  pointer: cursor;
+
+  
   h1 {
     font-size: 24px;
     text-decoration: none;
@@ -78,15 +79,17 @@ export const StyledQuestionCard = styled.div`
     margin: 1rem 0 1rem 0;
     text-decoration: none;
     color: white;
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     font-family: "Helvetica Neue";
   }
 `;
 
 export const StyledFooter = styled.footer`
   background-image: linear-gradient(25deg, #5574f7, #60c3ff);
+  max-width: 800px;
+  margin: 0 auto;
   display: flex;
-  padding: 0.5rem;
+  padding: 0.5rem 0rem;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
@@ -253,9 +256,9 @@ export const QuestionBox = styled.div`
 `;
 
 export const QuestionFooter = styled.footer`
+  max-width: 800px;
+  margin: 0 auto;
   background-color: #5574f7;
-  position: absolute;
-  bottom: 0;
   width: 100%;
   height: 15vh;
   display: flex;
@@ -264,9 +267,8 @@ export const QuestionFooter = styled.footer`
   align-items: center;
   color: white;
 
-  div {
+  span {
     text-align: center;
-    font-size: 12px;
   }
 `;
 
@@ -277,7 +279,7 @@ export const MessageHeader = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-bottom: lightgrey 0.2rem solid;
+  border-bottom: #E2E8ED 0.1rem solid;
 
   div {
     margin: 4vh;
@@ -293,7 +295,30 @@ export const MessageHeader = styled.header`
 
   h1 {
     margin-top: 6vh;
-    color: #4C5264;
+    color: #4c5264;
     font-size: 16px;
   }
 `;
+
+export const MessageMox= styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+
+`
+
+export const MessageLeft= styled.div`
+  border: 0.1rem solid #E2E8ED;
+  align-self: flex-start;
+`
+
+export const MessageRight= styled.div`
+  border: 0.1rem solid #5574F7;
+  background-color: linear-gradient(25deg, #5574f7, #60c3ff);
+
+  p{
+    padding: 0.5rem;
+    text-align: center;
+  }
+`

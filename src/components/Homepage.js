@@ -86,9 +86,6 @@ function Homepage(props) {
             }}
           />
         </StyledHeader>
-        <StyledSubheading>
-          Topic <IoIosArrowDown />
-        </StyledSubheading>
       </StyledHeadSection>
 
       {search.show && (

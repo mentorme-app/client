@@ -17,7 +17,7 @@ export default class MentorMe extends Component {
           path="/"
           render={() =>
             localStorage.getItem("token") ? (
-              <Redirect to="/profile" />
+              <Redirect to="/home" />
             ) : (
               <Redirect to="/signup" />
             )

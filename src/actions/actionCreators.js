@@ -173,17 +173,17 @@ export function conversationsSuccess(payload) {
 }
 
 export const newConversation = (mentorId, questionId) => dispatch => {
+  const newConv = {
+    mentor_id: mentorId,
+    question_id: questionId
+  };
   axios
-    .post("https://mentor-me-backend.herokuapp.com/api/conversations", {
-      mentor_id: mentorId,
-      question_id: questionId
-    })
+    .post("https://mentor-me-backend.herokuapp.com/api/conversations", newConv)
     .then(res => {
-      if(!res.data.message){
       dispatch(addConversation(res.data));
-      }
     })
-    .catch(err => {});
+    .catch(err => {
+    });
 };
 
 export function addConversation(data) {

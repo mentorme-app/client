@@ -19,8 +19,6 @@ function Question(props) {
     });
   }, [props.questions, props.match.params.id]);
 
-  console.log(state.question);
-
   return (
     <div>
       {state.isFetched ? (
@@ -52,7 +50,7 @@ function Question(props) {
               }`}
             >
               <IoIosPersonAdd />
-              <div> RESPOND</div>
+              <span> RESPOND</span>
             </styles.StyledLink>
           </styles.QuestionFooter>
         </div>

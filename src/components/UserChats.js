@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchUserChats, fetchQuestions } from "../actions";
-import { BlackLink, StyledChat } from "../styled-components/styled-components";
-import { IoIosArrowBack } from "react-icons/io";
+import { BlackLink, StyledChat,StyledFooter } from "../styled-components/styled-components";
+import { IoIosHome, IoIosBuild, IoIosPerson, IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 const UserChats = props => {
@@ -22,6 +22,29 @@ const UserChats = props => {
 
         <h2>Chat History</h2>
       </div>
+
+      {chats.map(chat => (
+        <div key={chat.id} className="chat">
+          <div>
+            <img src={chat.img} alt="Author Thumbnail" />
+          </div>
+          <div>
+            <h4>{chat.name}</h4>
+            <p>{chat.topic}</p>
+          </div>
+        </div>
+      ))}
+      <StyledFooter>
+        <BlackLink to="/home">
+          <IoIosHome />
+        </BlackLink>
+        <BlackLink to="/edit-profile">
+          <IoIosBuild />
+        </BlackLink>
+        <BlackLink to="/profile">
+          <IoIosPerson />
+        </BlackLink>
+      </StyledFooter>
 
       {chats.map(chat => {
         return (

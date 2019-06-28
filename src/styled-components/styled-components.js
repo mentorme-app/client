@@ -14,22 +14,22 @@ export const StyledHeadSection = styled.section`
   width: 100%;
   height: 15% vh;
   margin: 0 auto;
+  .subheading {
+    font-size: 10px;
+    text-align: center;
+  }
 `;
 export const StyledHeader = styled.header`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-`;
+  margin: 0.5rem 1.5rem;
 
-export const StyledH1 = styled.h1`
-  color: #5887f9;
-  font-size: 20px;
-`;
-
-export const StyledSubheading = styled.h1`
-  font-size: 10px;
-  text-align: center;
+  h1 {
+    color: #5887f9;
+    font-size: 20px;
+  }
 `;
 
 export const StyledSearchBar = styled.div`
@@ -61,7 +61,7 @@ export const StyledQuestionCard = styled.div`
       : "https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"});
   background-repeat: no-repeat;
   background-size: cover;
-  height: 50vw;
+  height: 60vw;
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -86,6 +86,28 @@ export const StyledQuestionCard = styled.div`
     text-decoration: none;
     color: white;
     font-size: 0.9rem;
+  }
+  @media (min-width: 600px) {
+    width: 550px;
+    height: 390px;
+    margin: 0.4rem;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    &:hover {
+      box-shadow: 0px 15px 20px rgba(88, 135, 249, 0.7);
+      transform: translateY(-7px);
+    }
+  }
+`;
+
+export const Wrapper = styled.section`
+  margin-bottom: 36px;
+  @media (min-width: 600px) {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 70px;
   }
 `;
 
@@ -131,8 +153,15 @@ export const StyledFooter = styled.footer`
   bottom: 0;
   left: 0;
   right: 0;
+  margin-top: 1rem;
   a {
     color: #fff;
+  }
+  @media (min-width: 600px) {
+    padding: 1rem;
+    a {
+      font-size: 2rem;
+    }
   }
 `;
 
@@ -198,6 +227,14 @@ export const FormModal = styled.div`
         font-weight: bold;
         margin: 1.2rem 0rem;
       }
+
+      @media (min-width: 600px) {
+        width: 50%;
+        margin: 1rem auto;
+        border: 1px #fff solid;
+        padding: 2rem;
+        border-radius: 1rem;
+      }
     }
   }
 `;
@@ -255,70 +292,46 @@ export const StyledQuestionHeader = styled.header`
   align-items: center;
 
   div {
-    margin: 6.5vh;
-
+    margin: 1rem;
     img {
-      width: 20vh;
-      height: 20vh;
-      margin: 0 auto;
+      width: 18vh;
+      height: 18vh;
+      object-fit: cover;
+      margin: 1.5rem auto;
       border: white 0.3rem solid;
-      border-radius: 25%;
+      border-radius: 50%;
     }
   }
 
-  h1 {
-    margin-top: 6vh;
+  h2 {
+    margin-top: 4rem;
     color: white;
-    font-size: 20px;
+    font-weight: bold;
   }
 `;
 
 export const QuestionBox = styled.div`
-  margin: 20vh 10vh;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  margin: 5rem auto;
+  padding: 2rem;
 
-  h1 {
+  h3 {
     color: #5887f9;
-    font-size: 20px;
+    font-size: 16px;
     margin: 1rem 0;
   }
 
   p {
-    font-size: 16px;
+    font-size: 12px;
   }
 `;
 
-export const QuestionFooter = styled.footer`
-  max-width: 800px;
-  margin: 0 auto;
-  background-image: linear-gradient(25deg, #5574f7, #60c3ff);
-  width: 100%;
-  height: 86px;
-  display: flex;
-  flex-direction: row;
+export const QuestionFooter = styled(StyledFooter)`
   justify-content: center;
-  align-items: center;
-  color: white;
-
-  span {
-    text-align: center;
-  }
-  footer {
-    background-image: linear-gradient(25deg, #5574f7, #60c3ff);
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    padding: 0.5rem 0rem;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
+  padding: 0.8rem;
+  div {
+    margin: 0 1rem;
+    font-size: 12px;
+    font-weight: bold;
 `;
 
 export const MessageHeader = styled.header`
@@ -338,14 +351,26 @@ export const MessageHeader = styled.header`
   }
 `;
 
+export const StyledLoader = styled.div`
+  position: fixed;
+  left: 50%;
+  right: 50%;
+  top: 50%;
+  bottom: 50%;
+`;
+
 export const StyledChat = styled.div`
   .chatHeader {
     padding: 1rem;
     display: flex;
     align-items: center;
+    a {
+      color: #5887f9;
+    }
     h2 {
       margin: 0 2rem;
       text-align: center;
+      color: #5887f9;
     }
   }
 
@@ -353,18 +378,84 @@ export const StyledChat = styled.div`
     display: flex;
     align-items: center;
     padding: 1rem;
-    border-bottom: 1px #4c5264 solid;
+    border-bottom: 1px #5887f9 solid;
+    h4 {
+      margin: 0;
+      color: #5887f9;
+    }
 
     img {
+      border: 1px #5887f9 solid;
       border-radius: 50%;
       width: 50px;
       height: 50px;
       margin: 1rem;
+      object-fit: cover;
     }
 
     p {
       font-size: 0.6rem;
     }
+  }
+`;
+
+export const ProfileWrapper = styled.div`
+  margin: 0;
+  button {
+    background-image: linear-gradient(25deg, #5574f7, #60c3ff);
+    padding: 1rem;
+    width: 100%;
+    border: none;
+    a {
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+    }
+  }
+  .info {
+    margin: 0.5rem;
+    padding: 0.5rem;
+
+    h3 {
+      font-weight: bold;
+    }
+
+    div {
+      margin: 1rem 0;
+    }
+  }
+  @media (min-width: 600px) {
+    width: 70%;
+    height:100vh;
+    margin: 0 auto;
+    font-size: 1.5rem;
+  }
+`;
+
+export const StyledProfile = styled.div`
+  background: url(${props => props.image});
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 65vw;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: #fff;
+
+  h3 {
+    margin: 0.5rem 0;
+    font-weight: bold;
+  }
+  div {
+    margin: 0.5rem 0;
+  }
+  @media (min-width: 600px) {
+    height: 35vw;
   }
 `;
 
@@ -468,3 +559,4 @@ export const ArrowForward = styled(IoIosArrowForward)`
 `;
 
 export const StyledDropdown = styled(Dropdown)``;
+

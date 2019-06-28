@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import {FormModal} from '../styled-components/styled-components'
+import {
+  StyledFooter,
+  BlackLink
+} from "../styled-components/styled-components";
+import { IoIosHome, IoIosChatbubbles, IoIosPerson } from "react-icons/io";
+import { FormModal } from "../styled-components/styled-components";
 import { userProfile } from "../actions";
 import { editCred } from "../actions";
 
@@ -16,9 +21,9 @@ const UserEdit = props => {
   };
 
   return (
-    <FormModal>
+    <FormModal display={"true"}>
       <div>
-      <h1>Edit Credentials</h1>
+        <h1>Edit Credentials</h1>
         <form onSubmit={edit}>
           <input
             type="email"
@@ -32,9 +37,20 @@ const UserEdit = props => {
             value={user.password}
             onChange={e => editUser({ ...user, password: e.target.value })}
           />
-          <input type="submit" value='SUBMIT CHANGES' />
+          <input type="submit" value="SUBMIT CHANGES" />
         </form>
       </div>
+      <StyledFooter>
+        <BlackLink to="/home">
+          <IoIosHome />
+        </BlackLink>
+        <BlackLink to="/chats">
+          <IoIosChatbubbles />
+        </BlackLink>
+        <BlackLink to="/profile">
+          <IoIosPerson />
+        </BlackLink>
+      </StyledFooter>
     </FormModal>
   );
 };

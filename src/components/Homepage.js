@@ -9,7 +9,7 @@ import {
   SideNav,
   BlackLink,
   StyledHeadSection,
-  StyledH1,
+  Wrapper,
   StyledHeader,
   StyledSearchBar,
   StyledLink,
@@ -23,8 +23,9 @@ import {
 import {
   IoIosSearch,
   IoIosMenu,
-  IoIosHome,
+  IoIosPerson,
   IoIosChatbubbles,
+  IoIosArrowDown,
   IoIosBuild
 } from "react-icons/io";
 import "react-dropdown/style.css";
@@ -99,8 +100,8 @@ function Homepage(props) {
     <div>
       {state.menuBool && (
         <SideNav>
-          <BlackLink to="/home">
-            <IoIosHome /> Home
+          <BlackLink to="/profile">
+            <IoIosPerson /> Profile
           </BlackLink>
 
           <BlackLink to="/chats">
@@ -121,7 +122,7 @@ function Homepage(props) {
           >
             <IoIosMenu />
           </div>
-          <StyledH1>Questions Feed</StyledH1>
+          <h1>Questions Feed</h1>
 
           <IoIosSearch
             onClick={() => {
@@ -129,6 +130,11 @@ function Homepage(props) {
             }}
           />
         </StyledHeader>
+
+        <h1 className='subheading'>
+          Topic <IoIosArrowDown />
+        </h1>
+
       </StyledHeadSection>
 
       {search.show && (
@@ -142,18 +148,7 @@ function Homepage(props) {
         </StyledSearchBar>
       )}
 
-      {questionsData.map(question => {
-        return (
-          <StyledLink key={question.id} to={`/question/${question.id}`}>
-            <StyledQuestionCard image={question.author.avatar ? question.author.avatar : "https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"}>
-              <h1>{question.author.username}</h1>
-              <h3>{question.tag.tag}</h3>
-              <p>{question.title}</p>
-            </StyledQuestionCard>
-          </StyledLink>
-        );
-      })}
-      <AddQuestionBox>
+     <AddQuestionBox>
         {!QuestionBox ? (
           <PlusIcon onClick={() => setQuestionBox(true)} />
         ) : (
@@ -189,9 +184,24 @@ function Homepage(props) {
           </div>
         )}
       </AddQuestionBox>
+
+      <Wrapper>
+      {questionsData.map(question => {
+        return (
+          <StyledLink key={question.id} to={`/question/${question.id}`}>
+            <StyledQuestionCard image={question.author.avatar ? question.author.avatar : "https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"}>
+              <h1>{question.author.username}</h1>
+              <h3>{question.tag.tag}</h3>
+              <p>{question.title}</p>
+            </StyledQuestionCard>
+          </StyledLink>
+        );
+      })}
+    </Wrapper>
+
       <StyledFooter>
-        <BlackLink to="/home">
-          <IoIosHome />
+        <BlackLink to="/profile">
+          <IoIosPerson />
         </BlackLink>
         <BlackLink to="/chats">
           <IoIosChatbubbles />

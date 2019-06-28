@@ -26,7 +26,7 @@ function Question(props) {
       {state.isFetched ? (
         <div>
           <styles.StyledQuestionHeader>
-            <h1>{state.question.author.username}</h1>
+            <h2>{state.question.author.username}</h2>
             <div>
               <img
                 src={
@@ -39,9 +39,16 @@ function Question(props) {
             </div>
           </styles.StyledQuestionHeader>
           <styles.QuestionBox>
-            <h1>{state.question.title}</h1>
+            <h3>{state.question.title}</h3>
             <p>{state.question.question}</p>
           </styles.QuestionBox>
+
+//           <styles.StyledLink to={`/conversation/${state.question.id}`}>
+//             <styles.QuestionFooter>
+//               <IoIosPersonAdd />
+//               <div> RESPOND</div>
+//             </styles.QuestionFooter>
+//           </styles.StyledLink>
 
           {state.question.author.id !== props.userId ? (
             <styles.QuestionFooter>

@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { fetchUserChats, fetchQuestions } from "../actions";
 import { BlackLink, StyledChat,StyledFooter } from "../styled-components/styled-components";
 import { IoIosHome, IoIosBuild, IoIosPerson, IoIosArrowBack } from "react-icons/io";
+import { Link } from "react-router-dom";
+
 const UserChats = props => {
   const { fetchQuestions, fetchUserChats, userId, chats } = props;
 
@@ -14,7 +16,7 @@ const UserChats = props => {
   return (
     <StyledChat>
       <div className="chatHeader">
-        <BlackLink to="/home">
+        <BlackLink onClick={() => props.history.goBack()}>
           <IoIosArrowBack />
         </BlackLink>
 
@@ -43,6 +45,20 @@ const UserChats = props => {
           <IoIosPerson />
         </BlackLink>
       </StyledFooter>
+
+      {chats.map(chat => {
+        return (
+            <div key={chat.id} className="chat">
+              <div>
+                <img src={chat.img} alt="Author Thumbnail" />
+              </div>
+              <div>
+                <h4>{chat.name}</h4>
+                <p>{chat.topic}</p>
+              </div>
+            </div>
+        );
+      })}
     </StyledChat>
   );
 };

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { fetchQuestions } from "../actions";
-
+import {
+  fetchQuestions,
+  fetchTags,
+  submitQuestion
+} from "../actions/actionCreators.js";
 import {
   SideNav,
   BlackLink,
@@ -11,16 +14,21 @@ import {
   StyledSearchBar,
   StyledLink,
   StyledQuestionCard,
-  StyledFooter
+  AddQuestionBox,
+  StyledFooter,
+  PlusIcon,
+  MinusIcon,
+  StyledInput
 } from "../styled-components/styled-components";
 import {
   IoIosSearch,
-  IoIosArrowDown,
   IoIosMenu,
   IoIosPerson,
   IoIosChatbubbles,
   IoIosBuild
 } from "react-icons/io";
+import "react-dropdown/style.css";
+import Dropdown from "react-dropdown";
 
 function Homepage(props) {
   const { questions, fetchQuestions } = props;
@@ -31,7 +39,16 @@ function Homepage(props) {
     show: false
   });
 
+  const [QuestionBox, setQuestionBox] = useState(false);
+  const [QuestionTag, setQuestionTag] = useState("");
+  const [QuestionTitle, setQuestionTitle] = useState("");
+  const [QuestionDescription, setQuestionDescription] = useState("");
+
   const [questionsData, setQuestions] = useState([]);
+
+  useEffect(() => {
+    props.fetchTags();
+  }, []);
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -58,6 +75,26 @@ function Homepage(props) {
     setQuestions(result);
   };
 
+  function submit(e) {
+    e.preventDefault();
+    const tagId = props.tags.find(t => t.tag === QuestionTag).id;
+    props.submitQuestion(
+      QuestionTitle,
+      QuestionDescription,
+      props.userId,
+      tagId
+    );
+
+    setQuestionBox(false);
+    setQuestionTag("");
+    setQuestionTitle("");
+    setQuestionDescription("");
+
+  }
+
+  let options = [];
+  props.tags.forEach(e => (options = options.concat(e.tag)));
+
   return (
     <div>
       {state.menuBool && (
@@ -70,7 +107,7 @@ function Homepage(props) {
             <IoIosChatbubbles /> Chats
           </BlackLink>
 
-          <BlackLink to="/changeProfile">
+          <BlackLink to="/edit-profile">
             <IoIosBuild /> Change Profile
           </BlackLink>
         </SideNav>
@@ -92,9 +129,11 @@ function Homepage(props) {
             }}
           />
         </StyledHeader>
+
         <h1 className='subheading'>
           Topic <IoIosArrowDown />
         </h1>
+
       </StyledHeadSection>
 
       {search.show && (
@@ -107,19 +146,58 @@ function Homepage(props) {
           />
         </StyledSearchBar>
       )}
+
+     <AddQuestionBox>
+        {!QuestionBox ? (
+          <PlusIcon onClick={() => setQuestionBox(true)} />
+        ) : (
+          <div>
+            <MinusIcon onClick={() => setQuestionBox(false)} />
+            <StyledInput
+              type="text"
+              placeholder="Question title"
+              onChange={e => {
+                setQuestionTitle(e.target.value);
+              }}
+            />
+            <StyledInput
+              type="text"
+              placeholder="Description"
+              onChange={e => {
+                setQuestionDescription(e.target.value);
+              }}
+            />
+            <Dropdown
+              className="input"
+              placeholderClassName="blue"
+              options={options}
+              onChange={e => setQuestionTag(e.value)}
+              value={QuestionTag}
+              placeholder="Select tag..."
+            />
+            <StyledInput
+              type="submit"
+              value="Submit question"
+              onClick={submit}
+            />
+          </div>
+        )}
+      </AddQuestionBox>
+
       <Wrapper>
-        {questionsData.map(question => {
-          return (
-            <StyledLink key={question.id} to={`/question/${question.id}`}>
-              <StyledQuestionCard image={question.author.avatar}>
-                <h1>{question.author.username}</h1>
-                <h3>{question.tag.tag}</h3>
-                <p>{question.title}</p>
-              </StyledQuestionCard>
-            </StyledLink>
-          );
-        })}
-      </Wrapper>
+      {questionsData.map(question => {
+        return (
+          <StyledLink key={question.id} to={`/question/${question.id}`}>
+            <StyledQuestionCard image={question.author.avatar ? question.author.avatar : "https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"}>
+              <h1>{question.author.username}</h1>
+              <h3>{question.tag.tag}</h3>
+              <p>{question.title}</p>
+            </StyledQuestionCard>
+          </StyledLink>
+        );
+      })}
+    </Wrapper>
+
       <StyledFooter>
         <BlackLink to="/profile">
           <IoIosPerson />
@@ -136,10 +214,12 @@ function Homepage(props) {
 }
 
 const mapStateToProps = state => ({
-  questions: state.questionsReducer.questions
+  questions: state.questionsReducer.questions,
+  tags: state.tagsReducer.tags,
+  userId: state.authReducer.userId
 });
 
 export default connect(
   mapStateToProps,
-  { fetchQuestions }
+  { fetchQuestions, fetchTags, submitQuestion }
 )(Homepage);

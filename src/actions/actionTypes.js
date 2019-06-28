@@ -11,6 +11,18 @@ export const USER_FAILURE = "USER_FAILURE";
 
 //Question
 export const QUESTIONS_SUCCESS = "QUESTIONS_SUCCESS";
+export const STORE_QUESTION = "STORE_QUESTION";
+
+//Conversation
+export const CONVERSATIONS_SUCCESS = "CONVERSATIONS_SUCCESS";
+export const ADD_CONVERSATION = "ADD_CONVERSATION";
+export const CONV_BY_ID_SUCCESS = "CONV_BY_ID_SUCCESS";
+
+//Messages
+export const STORE_MESSAGE = "STORE_MESSAGE";
+
+//Tags
+export const TAGS_SUCCESS = "TAGS_SUCCESS";
 
 //Chats
 export const CHATS_ID = "CHATS_ID";

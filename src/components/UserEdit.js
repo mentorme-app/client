@@ -17,6 +17,7 @@ const UserEdit = props => {
   const edit = e => {
     e.preventDefault();
     props.editCred(props.userId, { ...user });
+    props.history.push("/home");
   };
 
   return (

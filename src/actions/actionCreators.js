@@ -78,7 +78,7 @@ export const fetchUserChats = id => dispatch => {
     .then(res => {
       dispatch(userChatIds(res.data));
     })
-    .catch(err => {})
+    .catch(err => {});
 };
 
 // SIGN UP ACTION TYPES
@@ -157,8 +157,7 @@ export const submitQuestion = (
     .then(res => {
       dispatch(storeQuestion(res.data));
     })
-    .catch(err => {
-    });
+    .catch(err => {});
 };
 
 export const storeQuestion = payload => {
@@ -170,8 +169,7 @@ export const storeQuestion = payload => {
 
 //CONVERSATION ACTIONS
 
-export const fetchConversations = (questionId) => dispatch => {
-
+export const fetchConversations = questionId => dispatch => {
   axios
     .get(
       `https://mentor-me-backend.herokuapp.com/api/conversations?qid=${questionId}`
@@ -182,16 +180,18 @@ export const fetchConversations = (questionId) => dispatch => {
     .catch(err => {});
 };
 
-export const fetchConvById = questionId => dispatch => {
+export const fetchConvById = convid => dispatch => {
   axios
     .get(
-      `https://mentor-me-backend.herokuapp.com/api/conversations/${questionId}`
+      `https://mentor-me-backend.herokuapp.com/api/conversations/${convid}`
     )
     .then(res => {
-      debugger;
+      
       dispatch(convByIdSuccess(res.data));
     })
-    .catch(err => {});
+    .catch(err => {
+      debugger;
+    });
 };
 
 export function conversationsSuccess(payload) {
@@ -201,11 +201,11 @@ export function conversationsSuccess(payload) {
   };
 }
 
-export function convByIdSuccess(payload){
+export function convByIdSuccess(payload) {
   return {
     type: types.CONV_BY_ID_SUCCESS,
     payload: payload
-  }
+  };
 }
 
 export const newConversation = (mentorId, questionId) => dispatch => {
@@ -222,7 +222,6 @@ export const newConversation = (mentorId, questionId) => dispatch => {
 };
 
 export function addConversation(data) {
-  debugger;
   return {
     type: types.ADD_CONVERSATION,
     payload: data
@@ -246,9 +245,31 @@ export const tagsSuccess = payload => {
     payload: payload
   };
 };
+
 export function userChatIds(payload) {
   return {
     type: types.CHATS_ID,
     payload: payload
   };
 }
+
+//Messages
+
+export const postMessage = (sender, text, convId) => dispatch => {
+  axios
+    .post("https://mentor-me-backend.herokuapp.com/api/messages", {
+      sender: sender,
+      text: text,
+      conversation_id: convId
+    })
+    .then(res => {
+      dispatch(storeMessage(res.data));
+    });
+};
+
+export function storeMessage(payload){
+  return {
+    type: types.STORE_MESSAGE,
+    payload: payload
+  };
+};

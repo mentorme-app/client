@@ -1,7 +1,8 @@
 import {
   CONVERSATIONS_SUCCESS,
   ADD_CONVERSATION,
-  CONV_BY_ID_SUCCESS
+  CONV_BY_ID_SUCCESS,
+  STORE_MESSAGE
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -29,8 +30,14 @@ export const conversationsReducer = (state = initialState, action) => {
     case CONV_BY_ID_SUCCESS:
       return {
         ...state,
-        conv: action.payload
+        conv: action.payload,
+        convWasFetched: true
       };
+    case STORE_MESSAGE:
+      return {
+        ...state,
+        conv : {...state.conv, messages: state.conv.messages.concat(action.payload)}
+      }
     default:
       return state;
   }

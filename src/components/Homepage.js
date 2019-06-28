@@ -17,7 +17,8 @@ import {
   AddQuestionBox,
   StyledFooter,
   PlusIcon,
-  MinusIcon
+  MinusIcon,
+  StyledInput
 } from "../styled-components/styled-components";
 import {
   IoIosSearch,
@@ -26,8 +27,8 @@ import {
   IoIosChatbubbles,
   IoIosBuild
 } from "react-icons/io";
-import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
+import Dropdown from "react-dropdown";
 
 function Homepage(props) {
   const { questions, fetchQuestions } = props;
@@ -48,7 +49,7 @@ function Homepage(props) {
   useEffect(() => fetchTags());
   useEffect(() => {
     if (!localStorage.getItem("token")) {
-      props.history.push('/login')
+      props.history.push("/login");
     }
   });
 
@@ -72,8 +73,14 @@ function Homepage(props) {
   };
 
   function submit() {
+    debugger;
     const tagId = props.tags.find(t => t.tag === QuestionTag).id;
-    props.submitQuestion(QuestionTitle, QuestionDescription, props.userId, tagId);
+    props.submitQuestion(
+      QuestionTitle,
+      QuestionDescription,
+      props.userId,
+      tagId
+    );
   }
 
   let options = [];
@@ -129,9 +136,7 @@ function Homepage(props) {
       {questionsData.map(question => {
         return (
           <StyledLink key={question.id} to={`/question/${question.id}`}>
-            <StyledQuestionCard
-              image={question.author.avatar}
-            >
+            <StyledQuestionCard image={question.author.avatar}>
               <h1>{question.author.username}</h1>
               <h3>{question.tag.tag}</h3>
               <p>{question.title}</p>
@@ -144,14 +149,15 @@ function Homepage(props) {
           <PlusIcon onClick={() => setQuestionBox(true)} />
         ) : (
           <div>
-            <input
+            <MinusIcon onClick={() => setQuestionBox(false)} />
+            <StyledInput
               type="text"
               placeholder="Question title"
               onChange={e => {
                 setQuestionTitle(e.target.value);
               }}
             />
-            <input
+            <StyledInput
               type="text"
               placeholder="Description"
               onChange={e => {
@@ -159,13 +165,18 @@ function Homepage(props) {
               }}
             />
             <Dropdown
+            className="input"
+            placeholderClassName="blue"
               options={options}
               onChange={e => setQuestionTag(e.value)}
               value={QuestionTag}
               placeholder="Select tag..."
             />
-            <input type="submit" value="Submit question" onClick={submit} />
-            <MinusIcon onClick={() => setQuestionBox(false)} />
+            <StyledInput
+              type="submit"
+              value="Submit question"
+              onClick={submit}
+            />
           </div>
         )}
       </AddQuestionBox>

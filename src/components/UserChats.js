@@ -15,7 +15,7 @@ const UserChats = props => {
   return (
     <StyledChat>
       <div className="chatHeader">
-        <BlackLink to="/home">
+        <BlackLink onClick={() => props.history.goBack()}>
           <IoIosArrowBack />
         </BlackLink>
 

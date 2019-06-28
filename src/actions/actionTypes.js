@@ -19,7 +19,7 @@ export const ADD_CONVERSATION = "ADD_CONVERSATION";
 export const CONV_BY_ID_SUCCESS = "CONV_BY_ID_SUCCESS";
 
 //Messages
-export const STORE_MESSAGES = "STORE_MESSAGES";
+export const STORE_MESSAGE = "STORE_MESSAGE";
 
 //Tags
 export const TAGS_SUCCESS = "TAGS_SUCCESS";

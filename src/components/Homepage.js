@@ -130,11 +130,6 @@ function Homepage(props) {
             }}
           />
         </StyledHeader>
-
-        <h1 className='subheading'>
-          Topic <IoIosArrowDown />
-        </h1>
-
       </StyledHeadSection>
 
       {search.show && (
@@ -154,6 +149,14 @@ function Homepage(props) {
         ) : (
           <div>
             <MinusIcon onClick={() => setQuestionBox(false)} />
+            <Dropdown
+              className="input"
+              placeholderClassName="blue"
+              options={options}
+              onChange={e => setQuestionTag(e.value)}
+              value={QuestionTag}
+              placeholder="Select tag..."
+            />
             <StyledInput
               type="text"
               placeholder="Question title"
@@ -167,14 +170,6 @@ function Homepage(props) {
               onChange={e => {
                 setQuestionDescription(e.target.value);
               }}
-            />
-            <Dropdown
-              className="input"
-              placeholderClassName="blue"
-              options={options}
-              onChange={e => setQuestionTag(e.value)}
-              value={QuestionTag}
-              placeholder="Select tag..."
             />
             <StyledInput
               type="submit"

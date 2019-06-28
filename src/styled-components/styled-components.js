@@ -117,7 +117,6 @@ export const AddQuestionBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 86px;
 
   div {
     display: flex;
@@ -128,16 +127,16 @@ export const AddQuestionBox = styled.div`
 
 export const PlusIcon = styled(IoIosAddCircleOutline)`
   color: #5574f7;
-  width: 30vw;
-  height: 30vw;
-  padding: 86px;
+  width: 20vw;
+  height: 20vw;
+  padding: 30px;
 `;
 
 export const MinusIcon = styled(IoIosRemoveCircleOutline)`
   color: #5574f7;
-  width: 30vw;
-  height: 30vw;
-  padding: 86px;
+  width: 20vw;
+  height: 20vw;
+  padding: 30px;
 `;
 
 export const StyledFooter = styled.footer`
@@ -427,7 +426,7 @@ export const ProfileWrapper = styled.div`
   }
   @media (min-width: 600px) {
     width: 70%;
-    height:100vh;
+    height: 100vh;
     margin: 0 auto;
     font-size: 1.5rem;
   }
@@ -528,12 +527,12 @@ export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 export const StyledInput = styled.input`
   position: relative;
   overflow: hidden;
-  align-self:center;
+  align-self: center;
   background-color: white;
   border: 1px solid #5574f7;
   border-radius: 2px;
@@ -559,4 +558,3 @@ export const ArrowForward = styled(IoIosArrowForward)`
 `;
 
 export const StyledDropdown = styled(Dropdown)``;
-

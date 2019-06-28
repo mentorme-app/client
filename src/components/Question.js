@@ -43,12 +43,12 @@ function Question(props) {
             <p>{state.question.question}</p>
           </styles.QuestionBox>
 
-//           <styles.StyledLink to={`/conversation/${state.question.id}`}>
-//             <styles.QuestionFooter>
-//               <IoIosPersonAdd />
-//               <div> RESPOND</div>
-//             </styles.QuestionFooter>
-//           </styles.StyledLink>
+          <styles.StyledLink to={`/conversation/${state.question.id}`}>
+            <styles.QuestionFooter>
+              <IoIosPersonAdd />
+              <div> RESPOND</div>
+            </styles.QuestionFooter>
+          </styles.StyledLink>
 
           {state.question.author.id !== props.userId ? (
             <styles.QuestionFooter>

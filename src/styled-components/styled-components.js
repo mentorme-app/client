@@ -1,6 +1,11 @@
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
-import img from "../images/ask-blackboard-356079.jpg";
+import {
+  IoIosAddCircleOutline,
+  IoIosRemoveCircleOutline,
+  IoIosArrowForward
+} from "react-icons/io";
+import Dropdown from "react-dropdown";
 
 export const StyledHeadSection = styled.section`
   display: flex;
@@ -13,7 +18,7 @@ export const StyledHeadSection = styled.section`
 export const StyledHeader = styled.header`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
 `;
 
@@ -50,15 +55,18 @@ export const StyledSearchBar = styled.div`
 `;
 
 export const StyledQuestionCard = styled.div`
-  background-image: url(${props => (props.image ? props.image : img)});
+  background-image: url(${props =>
+    props.image
+      ? props.image
+      : "https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"});
   background-repeat: no-repeat;
   background-size: cover;
-  height: 70vw;
+  height: 50vw;
   display: flex;
   text-align: center;
   flex-direction: column;
   justify-content: flex-end;
-  pointer: cursor;
+
   h1 {
     font-size: 24px;
     text-decoration: none;
@@ -74,18 +82,48 @@ export const StyledQuestionCard = styled.div`
   }
 
   p {
-    margin: 1rem 0 1rem 0;
+    margin: 1rem 0 3vw 0;
     text-decoration: none;
     color: white;
-    font-size: 0.7rem;
-    font-family: "Helvetica Neue";
+    font-size: 0.9rem;
   }
+`;
+
+export const AddQuestionBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 86px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+export const PlusIcon = styled(IoIosAddCircleOutline)`
+  color: #5574f7;
+  width: 30vw;
+  height: 30vw;
+  padding: 86px;
+`;
+
+export const MinusIcon = styled(IoIosRemoveCircleOutline)`
+  color: #5574f7;
+  width: 30vw;
+  height: 30vw;
+  padding: 86px;
 `;
 
 export const StyledFooter = styled.footer`
   background-image: linear-gradient(25deg, #5574f7, #60c3ff);
+  max-width: 800px;
+  margin: 0 auto;
   display: flex;
-  padding: 0.5rem;
+  padding: 0.5rem 0rem;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
@@ -209,7 +247,7 @@ export const SideNav = styled.nav`
 `;
 
 export const StyledQuestionHeader = styled.header`
-  background-color: #5574f7;
+  background-image: linear-gradient(25deg, #5574f7, #60c3ff);
   width: 100%;
   height: 30vh;
   display: flex;
@@ -253,20 +291,50 @@ export const QuestionBox = styled.div`
 `;
 
 export const QuestionFooter = styled.footer`
-  background-color: #5574f7;
-  position: absolute;
-  bottom: 0;
+  max-width: 800px;
+  margin: 0 auto;
+  background-image: linear-gradient(25deg, #5574f7, #60c3ff);
   width: 100%;
-  height: 15vh;
+  height: 86px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   color: white;
 
-  div {
+  span {
     text-align: center;
-    font-size: 12px;
+  }
+  footer {
+    background-image: linear-gradient(25deg, #5574f7, #60c3ff);
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    padding: 0.5rem 0rem;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+`;
+
+export const MessageHeader = styled.header`
+  background-color: white;
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: #e2e8ed 0.1rem solid;
+
+  h1 {
+    align-self: center;
+    color: #4c5264;
+    font-size: 16px;
   }
 `;
 
@@ -276,7 +344,7 @@ export const StyledChat = styled.div`
     display: flex;
     align-items: center;
     h2 {
-      margin:0 2rem;
+      margin: 0 2rem;
       text-align: center;
     }
   }
@@ -299,3 +367,104 @@ export const StyledChat = styled.div`
     }
   }
 `;
+
+export const ConversationPage = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 86px;
+
+  form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    left: 0;
+    right: 0;
+    bottom: 2rem;
+  }
+
+  footer {
+    background-image: linear-gradient(25deg, #5574f7, #60c3ff);
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    padding: 0.5rem 0rem;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    a {
+      color: #fff;
+    }
+  }
+`;
+
+export const MessageLeft = styled.div`
+  border: 0.1rem solid #e2e8ed;
+  border-radius: 15px;
+  align-self: flex-start;
+  margin: 0.5rem 0.5rem 0 0.5rem;
+  max-width: 80%;
+
+  p {
+    text-align: left;
+    padding: 0.5rem;
+    text-align: center;
+  }
+`;
+
+export const MessageRight = styled.div`
+  border: 0.1rem solid #5574f7;
+  border-radius: 15px;
+  background-color: #5574f7;
+  align-self: flex-end;
+  margin: 0.5rem 0.5rem 0 0.5rem;
+  max-width: 80%;
+
+  p {
+    padding: 0.5rem;
+    text-align: left;
+    color: white;
+  }
+`;
+
+export const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+export const StyledInput = styled.input`
+  position: relative;
+  overflow: hidden;
+  align-self:center;
+  background-color: white;
+  border: 1px solid #5574f7;
+  border-radius: 2px;
+  box-sizing: border-box;
+  color: #5574f7;
+  cursor: default;
+  outline: none;
+  padding: 8px 52px 8px 10px;
+  transition: all 200ms ease;
+  width: 80%;
+  margin: 0.5rem;
+  ::placeholder {
+    color: #5574f7;
+  }
+`;
+
+export const ArrowForward = styled(IoIosArrowForward)`
+  background-color: #5574f7;
+  border-radius: 50%;
+  color: white;
+  padding: 0.5rem;
+  margin: 0.5rem;
+`;
+
+export const StyledDropdown = styled(Dropdown)``;

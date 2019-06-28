@@ -295,7 +295,7 @@ export const QuestionFooter = styled.footer`
   margin: 0 auto;
   background-image: linear-gradient(25deg, #5574f7, #60c3ff);
   width: 100%;
-  height: 86px
+  height: 86px;
   display: flex;
   flex-direction: row;
   justify-content: center;

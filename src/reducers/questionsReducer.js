@@ -13,7 +13,7 @@ export const questionsReducer = (state = initialState, action) => {
       };
     case STORE_QUESTION:
       return {
-        questions: [state.questions, action.payload]
+        questions: [...state.questions, action.payload]
       };
     default:
       return state;

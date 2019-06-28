@@ -46,7 +46,10 @@ function Homepage(props) {
 
   const [questionsData, setQuestions] = useState([]);
 
-  useEffect(() => fetchTags());
+  useEffect(() => {
+    props.fetchTags();
+  }, []);
+
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       props.history.push("/login");
@@ -72,8 +75,8 @@ function Homepage(props) {
     setQuestions(result);
   };
 
-  function submit() {
-    debugger;
+  function submit(e) {
+    e.preventDefault();
     const tagId = props.tags.find(t => t.tag === QuestionTag).id;
     props.submitQuestion(
       QuestionTitle,
@@ -81,6 +84,12 @@ function Homepage(props) {
       props.userId,
       tagId
     );
+
+    setQuestionBox(false);
+    setQuestionTag("");
+    setQuestionTitle("");
+    setQuestionDescription("");
+
   }
 
   let options = [];
@@ -136,7 +145,7 @@ function Homepage(props) {
       {questionsData.map(question => {
         return (
           <StyledLink key={question.id} to={`/question/${question.id}`}>
-            <StyledQuestionCard image={question.author.avatar}>
+            <StyledQuestionCard image={question.author.avatar ? question.author.avatar : "https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"}>
               <h1>{question.author.username}</h1>
               <h3>{question.tag.tag}</h3>
               <p>{question.title}</p>
@@ -165,8 +174,8 @@ function Homepage(props) {
               }}
             />
             <Dropdown
-            className="input"
-            placeholderClassName="blue"
+              className="input"
+              placeholderClassName="blue"
               options={options}
               onChange={e => setQuestionTag(e.value)}
               value={QuestionTag}

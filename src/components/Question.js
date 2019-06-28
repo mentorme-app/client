@@ -42,19 +42,24 @@ function Question(props) {
             <h1>{state.question.title}</h1>
             <p>{state.question.question}</p>
           </styles.QuestionBox>
-          <styles.QuestionFooter>
-            <styles.StyledLink
-              onClick={() => {
-                props.newConversation(props.userId, props.match.params.id);
-              }}
-              to={`/conversation/${state.question.id}/${
-                state.question.author.id
-              }`}
-            >
-              <IoIosPersonAdd />
-              <span> RESPOND</span>
-            </styles.StyledLink>
-          </styles.QuestionFooter>
+
+          {state.question.author.id !== props.userId ? (
+            <styles.QuestionFooter>
+              <styles.StyledLink
+                onClick={() => {
+                  props.newConversation(props.userId, props.match.params.id);
+                }}
+                to={`/conversation/${state.question.id}/${
+                  state.question.author.id
+                }`}
+              >
+                <IoIosPersonAdd />
+                <span> RESPOND</span>
+              </styles.StyledLink>
+            </styles.QuestionFooter>
+          ) : (
+            <div />
+          )}
         </div>
       ) : (
         <div />

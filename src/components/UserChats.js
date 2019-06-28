@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchUserChats, fetchQuestions } from "../actions";
 import { BlackLink, StyledChat } from "../styled-components/styled-components";
 import { IoIosArrowBack } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const UserChats = props => {
   const { fetchQuestions, fetchUserChats, userId, chats } = props;
@@ -22,17 +23,19 @@ const UserChats = props => {
         <h2>Chat History</h2>
       </div>
 
-      {chats.map(chat => (
-        <div key={chat.id} className="chat">
-          <div>
-            <img src={chat.img} alt="Author Thumbnail" />
-          </div>
-          <div>
-            <h4>{chat.name}</h4>
-            <p>{chat.topic}</p>
-          </div>
-        </div>
-      ))}
+      {chats.map(chat => {
+        return (
+            <div key={chat.id} className="chat">
+              <div>
+                <img src={chat.img} alt="Author Thumbnail" />
+              </div>
+              <div>
+                <h4>{chat.name}</h4>
+                <p>{chat.topic}</p>
+              </div>
+            </div>
+        );
+      })}
     </StyledChat>
   );
 };

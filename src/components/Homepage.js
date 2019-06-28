@@ -6,9 +6,8 @@ import {
   SideNav,
   BlackLink,
   StyledHeadSection,
-  StyledH1,
+  Wrapper,
   StyledHeader,
-  StyledSubheading,
   StyledSearchBar,
   StyledLink,
   StyledQuestionCard,
@@ -18,7 +17,7 @@ import {
   IoIosSearch,
   IoIosArrowDown,
   IoIosMenu,
-  IoIosHome,
+  IoIosPerson,
   IoIosChatbubbles,
   IoIosBuild
 } from "react-icons/io";
@@ -36,7 +35,7 @@ function Homepage(props) {
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
-      props.history.push('/login')
+      props.history.push("/login");
     }
   });
 
@@ -63,8 +62,8 @@ function Homepage(props) {
     <div>
       {state.menuBool && (
         <SideNav>
-          <BlackLink to="/home">
-            <IoIosHome /> Home
+          <BlackLink to="/profile">
+            <IoIosPerson /> Profile
           </BlackLink>
 
           <BlackLink to="/chats">
@@ -85,7 +84,7 @@ function Homepage(props) {
           >
             <IoIosMenu />
           </div>
-          <StyledH1>Questions Feed</StyledH1>
+          <h1>Questions Feed</h1>
 
           <IoIosSearch
             onClick={() => {
@@ -93,9 +92,9 @@ function Homepage(props) {
             }}
           />
         </StyledHeader>
-        <StyledSubheading>
+        <h1 className='subheading'>
           Topic <IoIosArrowDown />
-        </StyledSubheading>
+        </h1>
       </StyledHeadSection>
 
       {search.show && (
@@ -108,23 +107,22 @@ function Homepage(props) {
           />
         </StyledSearchBar>
       )}
-
-      {questionsData.map(question => {
-        return (
-          <StyledLink key={question.id} to={`/question/${question.id}`}>
-            <StyledQuestionCard
-              image={question.author.avatar}
-            >
-              <h1>{question.author.username}</h1>
-              <h3>{question.tag.tag}</h3>
-              <p>{question.title}</p>
-            </StyledQuestionCard>
-          </StyledLink>
-        );
-      })}
+      <Wrapper>
+        {questionsData.map(question => {
+          return (
+            <StyledLink key={question.id} to={`/question/${question.id}`}>
+              <StyledQuestionCard image={question.author.avatar}>
+                <h1>{question.author.username}</h1>
+                <h3>{question.tag.tag}</h3>
+                <p>{question.title}</p>
+              </StyledQuestionCard>
+            </StyledLink>
+          );
+        })}
+      </Wrapper>
       <StyledFooter>
-        <BlackLink to="/home">
-          <IoIosHome />
+        <BlackLink to="/profile">
+          <IoIosPerson />
         </BlackLink>
         <BlackLink to="/chats">
           <IoIosChatbubbles />

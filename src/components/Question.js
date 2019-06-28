@@ -11,7 +11,9 @@ function Question(props) {
 
   useEffect(() => {
     getQuestion({
-      question: props.questions.find(q => q.id === JSON.parse(props.match.params.id)),
+      question: props.questions.find(
+        q => q.id === JSON.parse(props.match.params.id)
+      ),
       isFetched: true
     });
   }, [props.questions, props.match.params.id]);
@@ -21,7 +23,7 @@ function Question(props) {
       {state.isFetched ? (
         <div>
           <styles.StyledQuestionHeader>
-            <h1>{state.question.author.username}</h1>
+            <h2>{state.question.author.username}</h2>
             <div>
               <img
                 src={
@@ -34,15 +36,15 @@ function Question(props) {
             </div>
           </styles.StyledQuestionHeader>
           <styles.QuestionBox>
-            <h1>{state.question.title}</h1>
+            <h3>{state.question.title}</h3>
             <p>{state.question.question}</p>
           </styles.QuestionBox>
-          <styles.QuestionFooter>
-            <styles.StyledLink to={`/conversation/${state.question.id}`}>
+          <styles.StyledLink to={`/conversation/${state.question.id}`}>
+            <styles.QuestionFooter>
               <IoIosPersonAdd />
               <div> RESPOND</div>
-            </styles.StyledLink>
-          </styles.QuestionFooter>
+            </styles.QuestionFooter>
+          </styles.StyledLink>
         </div>
       ) : (
         <div />

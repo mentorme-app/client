@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchUserChats, fetchQuestions } from "../actions";
-import { BlackLink, StyledChat } from "../styled-components/styled-components";
-import { IoIosArrowBack } from "react-icons/io";
-
+import { BlackLink, StyledChat,StyledFooter } from "../styled-components/styled-components";
+import { IoIosHome, IoIosBuild, IoIosPerson, IoIosArrowBack } from "react-icons/io";
 const UserChats = props => {
   const { fetchQuestions, fetchUserChats, userId, chats } = props;
 
@@ -33,6 +32,17 @@ const UserChats = props => {
           </div>
         </div>
       ))}
+      <StyledFooter>
+        <BlackLink to="/home">
+          <IoIosHome />
+        </BlackLink>
+        <BlackLink to="/edit-profile">
+          <IoIosBuild />
+        </BlackLink>
+        <BlackLink to="/profile">
+          <IoIosPerson />
+        </BlackLink>
+      </StyledFooter>
     </StyledChat>
   );
 };

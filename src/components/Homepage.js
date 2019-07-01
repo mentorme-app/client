@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
-  fetchQuestions,
-  fetchTags,
-  submitQuestion
-} from "../actions/actionCreators.js";
+  fetchQuestions
+} from "../actions";
+import QuestionForm from "./QuestionForm";
 import {
-  SideNav,
   BlackLink,
   StyledHeadSection,
   Wrapper,
@@ -15,41 +13,28 @@ import {
   StyledLink,
   StyledQuestionCard,
   AddQuestionBox,
-  StyledFooter,
   PlusIcon,
   MinusIcon,
-  StyledInput
+  StyledFooter
 } from "../styled-components/styled-components";
 import {
   IoIosSearch,
-  IoIosMenu,
   IoIosPerson,
   IoIosChatbubbles,
-  IoIosArrowDown,
   IoIosBuild
 } from "react-icons/io";
-import "react-dropdown/style.css";
-import Dropdown from "react-dropdown";
 
 function Homepage(props) {
+
   const { questions, fetchQuestions } = props;
-  const [state, toggleMenu] = useState({
-    menuBool: false
-  });
+
+  const [show, toggleShow] = useState(false)
+
   const [search, toggleSearch] = useState({
     show: false
   });
 
-  const [QuestionBox, setQuestionBox] = useState(false);
-  const [QuestionTag, setQuestionTag] = useState("");
-  const [QuestionTitle, setQuestionTitle] = useState("");
-  const [QuestionDescription, setQuestionDescription] = useState("");
-
   const [questionsData, setQuestions] = useState([]);
-
-  useEffect(() => {
-    props.fetchTags();
-  }, []);
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -58,6 +43,7 @@ function Homepage(props) {
   });
 
   useEffect(fetchQuestions, []);
+
   useEffect(() => setQuestions(questions), [questions]);
 
   const SearchHandler = e => {
@@ -76,61 +62,21 @@ function Homepage(props) {
     setQuestions(result);
   };
 
-  function submit(e) {
-    e.preventDefault();
-    const tagId = props.tags.find(t => t.tag === QuestionTag).id;
-    props.submitQuestion(
-      QuestionTitle,
-      QuestionDescription,
-      props.userId,
-      tagId
-    );
-
-    setQuestionBox(false);
-    setQuestionTag("");
-    setQuestionTitle("");
-    setQuestionDescription("");
-
-  }
-
-  let options = [];
-  props.tags.forEach(e => (options = options.concat(e.tag)));
-
   return (
     <div>
-      {state.menuBool && (
-        <SideNav>
-          <BlackLink to="/profile">
-            <IoIosPerson /> Profile
-          </BlackLink>
-
-          <BlackLink to="/chats">
-            <IoIosChatbubbles /> Chats
-          </BlackLink>
-
-          <BlackLink to="/edit-profile">
-            <IoIosBuild /> Change Profile
-          </BlackLink>
-        </SideNav>
-      )}
       <StyledHeadSection>
         <StyledHeader>
-          <div
-            onClick={() => {
-              toggleMenu({ menuBool: !state.menuBool });
-            }}
-          >
-            <IoIosMenu />
-          </div>
-          <h1>Questions Feed</h1>
-
+        <div><h1>MentorMe</h1></div>
+        <button onClick={() => toggleShow(!show)}>Post new question {!show ? <PlusIcon /> : <MinusIcon /> }</button>
           <IoIosSearch
             onClick={() => {
               toggleSearch({ show: !search.show });
             }}
           />
+          <button>Logout</button>
         </StyledHeader>
       </StyledHeadSection>
+
 
       {search.show && (
         <StyledSearchBar>
@@ -143,56 +89,29 @@ function Homepage(props) {
         </StyledSearchBar>
       )}
 
-     <AddQuestionBox>
-        {!QuestionBox ? (
-          <PlusIcon onClick={() => setQuestionBox(true)} />
-        ) : (
-          <div>
-            <MinusIcon onClick={() => setQuestionBox(false)} />
-            <Dropdown
-              className="input"
-              placeholderClassName="blue"
-              options={options}
-              onChange={e => setQuestionTag(e.value)}
-              value={QuestionTag}
-              placeholder="Select tag..."
-            />
-            <StyledInput
-              type="text"
-              placeholder="Question title"
-              onChange={e => {
-                setQuestionTitle(e.target.value);
-              }}
-            />
-            <StyledInput
-              type="text"
-              placeholder="Description"
-              onChange={e => {
-                setQuestionDescription(e.target.value);
-              }}
-            />
-            <StyledInput
-              type="submit"
-              value="Submit question"
-              onClick={submit}
-            />
-          </div>
-        )}
+      <AddQuestionBox>
+        <QuestionForm toggle={show}/>
       </AddQuestionBox>
 
       <Wrapper>
-      {questionsData.map(question => {
-        return (
-          <StyledLink key={question.id} to={`/question/${question.id}`}>
-            <StyledQuestionCard image={question.author.avatar ? question.author.avatar : "https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"}>
-              <h1>{question.author.username}</h1>
-              <h3>{question.tag.tag}</h3>
-              <p>{question.title}</p>
-            </StyledQuestionCard>
-          </StyledLink>
-        );
-      })}
-    </Wrapper>
+        {questionsData.map(question => {
+          return (
+            <StyledLink key={question.id} to={`/question/${question.id}`}>
+              <StyledQuestionCard
+                image={
+                  question.author.avatar
+                    ? question.author.avatar
+                    : "https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                }
+              >
+                <h1>{question.author.username}</h1>
+                <h3>{question.tag.tag}</h3>
+                <p>{question.title}</p>
+              </StyledQuestionCard>
+            </StyledLink>
+          );
+        })}
+      </Wrapper>
 
       <StyledFooter>
         <BlackLink to="/profile">
@@ -217,5 +136,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchQuestions, fetchTags, submitQuestion }
+  { fetchQuestions }
 )(Homepage);

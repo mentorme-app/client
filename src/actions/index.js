@@ -4,6 +4,8 @@ export {
   userProfile,
   editCred,
   fetchQuestions,
+  submitQuestion,
+  fetchTags,
   fetchUserChats
 } from "./actionCreators";
 

@@ -73,7 +73,7 @@ function Homepage(props) {
               toggleSearch({ show: !search.show });
             }}
           />
-          <button>Logout</button>
+          <button onClick={() => localStorage.clear()}>Logout</button>
         </StyledHeader>
       </StyledHeadSection>
 

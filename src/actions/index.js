@@ -5,8 +5,11 @@ export {
   editCred,
   fetchQuestions,
   submitQuestion,
+  fetchConversations,
+  newConversation,
   fetchTags,
-  fetchUserChats
+  fetchUserChats,
+  fetchConvById
 } from "./actionCreators";
 
 export {

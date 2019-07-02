@@ -115,6 +115,7 @@ export const Wrapper = styled.section`
   @media (min-width: 600px) {
     position: relative;
     display: flex;
+    flex-direction: row-reverse;
     flex-wrap: wrap;
     width: 80%;
     margin: 0 auto;

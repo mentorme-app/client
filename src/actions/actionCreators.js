@@ -186,7 +186,6 @@ export const fetchConvById = convid => dispatch => {
       `https://mentor-me-backend.herokuapp.com/api/conversations/${convid}`
     )
     .then(res => {
-      
       dispatch(convByIdSuccess(res.data));
     })
     .catch(err => {

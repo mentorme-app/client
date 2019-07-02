@@ -45,20 +45,6 @@ const UserChats = props => {
           <IoIosPerson />
         </BlackLink>
       </StyledFooter>
-
-      {chats.map(chat => {
-        return (
-            <div key={chat.id} className="chat">
-              <div>
-                <img src={chat.img} alt="Author Thumbnail" />
-              </div>
-              <div>
-                <h4>{chat.name}</h4>
-                <p>{chat.topic}</p>
-              </div>
-            </div>
-        );
-      })}
     </StyledChat>
   );
 };

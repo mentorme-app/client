@@ -31,8 +31,12 @@ export default class MentorMe extends Component {
         <Route path="/edit-profile" component={UserEdit} />
         <Route path="/home" component={Homepage} />
         <Route path="/question/:id" render={props => <Question {...props} />} />
-        <Route
+        {/* <Route
           path="/conversation/:questionid/:authorid"
+          render={props => <Conversation {...props} />}
+        /> */}
+        <Route
+          path="/conversation/:id"
           render={props => <Conversation {...props} />}
         />
         <Route path="/chats" component={UserChats} />

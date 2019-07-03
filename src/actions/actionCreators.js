@@ -39,6 +39,30 @@ export const loginUser = user => dispatch => {
     });
 };
 
+// SIGN UP ACTION TYPES
+
+export function authSignup() {
+  return {
+    type: types.AUTH_LOAD
+  };
+}
+
+export function authSuccess(user) {
+  return {
+    type: types.AUTH_SUCCESS,
+    payload: user
+  };
+}
+
+export function authFail(payload) {
+  return {
+    type: types.AUTH_FAILURE,
+    payload: payload
+  };
+}
+
+// USER PROFILE
+
 export const userProfile = id => dispatch => {
   dispatch(userLoad());
   axios
@@ -62,46 +86,6 @@ export const editCred = (id, cred) => dispatch => {
       dispatch(userFail(err.message));
     });
 };
-
-export const fetchQuestions = () => dispatch => {
-  axios
-    .get("https://mentor-me-backend.herokuapp.com/api/questions")
-    .then(res => {
-      dispatch(questionsSuccess(res.data));
-    })
-    .catch(err => {});
-};
-
-export const fetchUserChats = id => dispatch => {
-  axios
-    .get(`https://mentor-me-backend.herokuapp.com/api/conversations/user/${id}`)
-    .then(res => {
-      dispatch(userChatIds(res.data));
-    })
-    .catch(err => {});
-};
-
-// SIGN UP ACTION TYPES
-
-export function authSignup() {
-  return {
-    type: types.AUTH_LOAD
-  };
-}
-
-export function authSuccess(user) {
-  return {
-    type: types.AUTH_SUCCESS,
-    payload: user
-  };
-}
-
-export function authFail(payload) {
-  return {
-    type: types.AUTH_FAILURE,
-    payload: payload
-  };
-}
 
 // USER PROFILE ACTION TYPES
 
@@ -131,6 +115,24 @@ export function userFail(payload) {
     payload: payload
   };
 }
+
+export const fetchQuestions = () => dispatch => {
+  axios
+    .get("https://mentor-me-backend.herokuapp.com/api/questions")
+    .then(res => {
+      dispatch(questionsSuccess(res.data));
+    })
+    .catch(err => {});
+};
+
+export const fetchUserChats = id => dispatch => {
+  axios
+    .get(`https://mentor-me-backend.herokuapp.com/api/conversations/user/${id}`)
+    .then(res => {
+      dispatch(userChatIds(res.data));
+    })
+    .catch(err => {});
+};
 
 // QUESTION ACTIONS
 
@@ -182,9 +184,7 @@ export const fetchConversations = questionId => dispatch => {
 
 export const fetchConvById = convid => dispatch => {
   axios
-    .get(
-      `https://mentor-me-backend.herokuapp.com/api/conversations/${convid}`
-    )
+    .get(`https://mentor-me-backend.herokuapp.com/api/conversations/${convid}`)
     .then(res => {
       dispatch(convByIdSuccess(res.data));
     })
@@ -265,9 +265,9 @@ export const postMessage = (sender, text, convId) => dispatch => {
     });
 };
 
-export function storeMessage(payload){
+export function storeMessage(payload) {
   return {
     type: types.STORE_MESSAGE,
     payload: payload
   };
-};
+}

@@ -1,17 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
-import { fetchConvById, postMessage, fetchConversations } from "../actions/actionCreators";
+import {
+  fetchConvById,
+  postMessage,
+  fetchConversations
+} from "../actions/actionCreators";
 import * as styles from "../styled-components/styled-components";
 
-
 function Conversation(props) {
-  const {fetchConvById, conversations, userId} = props;
-  
-  useEffect(() => {
-    const conv = conversations.find(conv => conv.mentor_id === userId || conv.author_id === userId);
+  const { fetchConvById, conversations, userId } = props;
 
-    if(conv) {
+  useEffect(() => {
+    const conv = conversations.find(
+      conv => conv.mentor_id === userId || conv.author_id === userId
+    );
+
+    if (conv) {
       fetchConvById(conv.id);
     }
   }, [fetchConvById, conversations, userId]);
@@ -24,8 +29,8 @@ function Conversation(props) {
     setNewMessage("");
   }
 
-  if(!props.convWasFetched) {
-    return  <div>Loading</div>
+  if (!props.convWasFetched) {
+    return <div>Loading</div>;
   }
 
   if (props.convWasFetched && props.conv) {
@@ -54,48 +59,21 @@ function Conversation(props) {
           }
         })}
         <footer>
-        <form onSubmit={submit}>
-          <styles.StyledInput
-            type="text"
-            value={newMessage}
-            onChange={e => setNewMessage(e.target.value)}
-            placeholder="Your message..."
-          />
-          <div onClick={submit}>
-            <styles.ArrowForward />
-          </div>
-        </form>
+          <form onSubmit={submit}>
+            <styles.StyledInput
+              type="text"
+              value={newMessage}
+              onChange={e => setNewMessage(e.target.value)}
+              placeholder="Your message..."
+            />
+            <div onClick={submit}>
+              <styles.ArrowForward />
+            </div>
+          </form>
         </footer>
       </styles.ConversationPage>
-
     );
   }
-
-    // return (
-    //   <styles.ConversationPage>
-    //     <styles.MessageHeader>
-    //       <h1>
-    //         {`${props.conv.mentor_id}` === `${props.userId}`
-    //           ? `${props.conv.author.username}`
-    //           : `${props.conv.mentor.username}`}
-    //       </h1>
-    //     </styles.MessageHeader>
-    //     <footer>
-    //     <form onSubmit={submit}>
-    //       <styles.StyledInput
-    //         type="text"
-    //         value={newMessage}
-    //         onChange={e => setNewMessage(e.target.value)}
-    //         placeholder="Your message..."
-    //       />
-    //       <div onClick={submit}>
-    //         <styles.ArrowForward />
-    //       </div>
-    //     </form>
-    //     </footer>
-    //   </styles.ConversationPage>
-
-    // )
 }
 
 function mapStateToProps(state) {

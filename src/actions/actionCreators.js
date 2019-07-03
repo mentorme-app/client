@@ -188,9 +188,7 @@ export const fetchConvById = convid => dispatch => {
     .then(res => {
       dispatch(convByIdSuccess(res.data));
     })
-    .catch(err => {
-      debugger;
-    });
+    .catch(err => {});
 };
 
 export function conversationsSuccess(payload) {

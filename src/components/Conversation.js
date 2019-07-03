@@ -1,30 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
-import {
-  fetchConvById,
-  postMessage,
-  fetchConversations,
-  newConversation
-} from "../actions/actionCreators";
+import { fetchConvById, postMessage, fetchConversations } from "../actions/actionCreators";
 import * as styles from "../styled-components/styled-components";
 
-function Conversation(props) {
-  useEffect(() => {
-    props.newConversation(props.userId, props.match.params.id);
-  }, []);
 
+function Conversation(props) {
+  const {fetchConvById, conversations, userId} = props;
+  
   useEffect(() => {
-    if (props.conversations) {
-      const conv = props.conversations.find(
-        conv =>
-          conv.mentor_id === props.userId || conv.author_id === props.userId
-      );
-      if (conv !== undefined) {
-        props.fetchConvById(conv.id);
-      }
+    const conv = conversations.find(conv => conv.mentor_id === userId || conv.author_id === userId);
+
+    if(conv) {
+      fetchConvById(conv.id);
     }
-  }, []);
+  }, [fetchConvById, conversations, userId]);
 
   const [newMessage, setNewMessage] = useState("");
 
@@ -34,11 +24,11 @@ function Conversation(props) {
     setNewMessage("");
   }
 
-  if (!props.convWasFetched) {
-    return <div>Loading</div>;
+  if(!props.convWasFetched) {
+    return  <div>Loading</div>
   }
 
-  if (props.convWasFetched && props.conv !== undefined) {
+  if (props.convWasFetched && props.conv) {
     return (
       <styles.ConversationPage>
         <styles.MessageHeader>
@@ -64,47 +54,48 @@ function Conversation(props) {
           }
         })}
         <footer>
-          <form onSubmit={submit}>
-            <styles.StyledInput
-              type="text"
-              value={newMessage}
-              onChange={e => setNewMessage(e.target.value)}
-              placeholder="Your message..."
-            />
-            <div onClick={submit}>
-              <styles.ArrowForward />
-            </div>
-          </form>
+        <form onSubmit={submit}>
+          <styles.StyledInput
+            type="text"
+            value={newMessage}
+            onChange={e => setNewMessage(e.target.value)}
+            placeholder="Your message..."
+          />
+          <div onClick={submit}>
+            <styles.ArrowForward />
+          </div>
+        </form>
         </footer>
       </styles.ConversationPage>
+
     );
   }
 
-  // return (
-  //   <styles.ConversationPage>
-  //     <styles.MessageHeader>
-  //       <h1>
-  //         {`${props.conv.mentor_id}` === `${props.userId}`
-  //           ? `${props.conv.author.username}`
-  //           : `${props.conv.mentor.username}`}
-  //       </h1>
-  //     </styles.MessageHeader>
-  //     <footer>
-  //     <form onSubmit={submit}>
-  //       <styles.StyledInput
-  //         type="text"
-  //         value={newMessage}
-  //         onChange={e => setNewMessage(e.target.value)}
-  //         placeholder="Your message..."
-  //       />
-  //       <div onClick={submit}>
-  //         <styles.ArrowForward />
-  //       </div>
-  //     </form>
-  //     </footer>
-  //   </styles.ConversationPage>
+    // return (
+    //   <styles.ConversationPage>
+    //     <styles.MessageHeader>
+    //       <h1>
+    //         {`${props.conv.mentor_id}` === `${props.userId}`
+    //           ? `${props.conv.author.username}`
+    //           : `${props.conv.mentor.username}`}
+    //       </h1>
+    //     </styles.MessageHeader>
+    //     <footer>
+    //     <form onSubmit={submit}>
+    //       <styles.StyledInput
+    //         type="text"
+    //         value={newMessage}
+    //         onChange={e => setNewMessage(e.target.value)}
+    //         placeholder="Your message..."
+    //       />
+    //       <div onClick={submit}>
+    //         <styles.ArrowForward />
+    //       </div>
+    //     </form>
+    //     </footer>
+    //   </styles.ConversationPage>
 
-  // )
+    // )
 }
 
 function mapStateToProps(state) {
@@ -119,5 +110,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { fetchConvById, postMessage, fetchConversations, newConversation }
+  { fetchConvById, postMessage, fetchConversations }
 )(Conversation);

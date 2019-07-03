@@ -19,7 +19,9 @@ function Question(props) {
     });
   }, []);
 
-  state.isFetched && props.fetchConversations(state.question.id);
+  if(state.isFetched) {
+    props.fetchConversations(state.question.id);
+  }
 
   return (
     <div>
@@ -45,10 +47,12 @@ function Question(props) {
 
           {state.question.author.id !== props.userId ? (
             <styles.StyledLink
-              // onClick={() => {
-              //   props.newConversation(props.userId, props.match.params.id);
-              // }}
-              to={`/conversation/${state.question.id}`}
+              onClick={() => {
+                props.newConversation(props.userId, props.match.params.id);
+              }}
+              to={`/conversation/${state.question.id}/${
+                state.question.author.id
+              }`}
             >
               <styles.QuestionFooter>
                 <IoIosPersonAdd />

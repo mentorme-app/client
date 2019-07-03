@@ -141,16 +141,12 @@ export const PlusIcon = styled(IoIosAddCircleOutline)`
   color: #fff;
   font-size: 1rem;
   margin: -3px 0;
-
-  ${"" /* width: 10vw;
-  align-self: baseline; */}
 `;
 
 export const MinusIcon = styled(IoIosRemoveCircleOutline)`
   color: #fff;
   font-size: 1rem;
   margin: -3px 0;
-  ${"" /* ${'' /* width: 10vw; */}
 `;
 
 export const StyledFooter = styled.footer`
@@ -490,7 +486,7 @@ export const ConversationPage = styled.section`
 
   footer {
     background-image: linear-gradient(25deg, #5574f7, #60c3ff);
-    max-width: 800px;
+    width: 100%;
     margin: 0 auto;
     display: flex;
     padding: 0.5rem 0rem;

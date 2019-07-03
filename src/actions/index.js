@@ -4,7 +4,12 @@ export {
   userProfile,
   editCred,
   fetchQuestions,
-  fetchUserChats
+  submitQuestion,
+  fetchConversations,
+  newConversation,
+  fetchTags,
+  fetchUserChats,
+  fetchConvById
 } from "./actionCreators";
 
 export {
@@ -15,5 +20,6 @@ export {
   USER_SUCCESS,
   USER_EDIT,
   USER_FAILURE,
-  QUESTIONS_SUCCESS
+  QUESTIONS_SUCCESS,
+  CONV_BY_ID_SUCCESS
 } from "./actionTypes";

@@ -17,9 +17,11 @@ function Login(props) {
     });
   };
 
-  if (localStorage.getItem("token")) {
-    return <Redirect to="/home" />;
-  }
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      return <Redirect to="/home" />;
+    }
+  });
 
   return (
     <FormModal display={localStorage.getItem("token") ? "none" : "block"}>

@@ -186,12 +186,9 @@ export const fetchConvById = convid => dispatch => {
       `https://mentor-me-backend.herokuapp.com/api/conversations/${convid}`
     )
     .then(res => {
-      
       dispatch(convByIdSuccess(res.data));
     })
-    .catch(err => {
-      debugger;
-    });
+    .catch(err => {});
 };
 
 export function conversationsSuccess(payload) {
@@ -211,9 +208,10 @@ export function convByIdSuccess(payload) {
 export const newConversation = (mentorId, questionId) => dispatch => {
   const newConv = {
     mentor_id: mentorId,
-    question_id: questionId
+    question_id: parseInt(questionId, 10)
   };
-  axios
+
+  return axios
     .post("https://mentor-me-backend.herokuapp.com/api/conversations", newConv)
     .then(res => {
       dispatch(addConversation(res.data));

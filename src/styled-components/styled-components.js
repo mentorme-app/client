@@ -25,10 +25,21 @@ export const StyledHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   margin: 0.5rem 1.5rem;
+  font-size: 1.5rem;
+  border-bottom: 1px #5887f9 solid;
+  button {
+    border: none;
+    font-size: 1rem;
+    background-color: #5887f9;
+    color: #fff;
+    padding: 1rem;
+    font-size: 1rem;
+    outline: none;
+  }
 
   h1 {
     color: #5887f9;
-    font-size: 20px;
+    font-size: 2rem;
   }
 `;
 
@@ -88,7 +99,7 @@ export const StyledQuestionCard = styled.div`
     font-size: 0.9rem;
   }
   @media (min-width: 600px) {
-    width: 550px;
+    width: 530px;
     height: 390px;
     margin: 0.4rem;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
@@ -104,6 +115,7 @@ export const Wrapper = styled.section`
   @media (min-width: 600px) {
     position: relative;
     display: flex;
+    flex-direction: row-reverse;
     flex-wrap: wrap;
     width: 80%;
     margin: 0 auto;
@@ -126,22 +138,19 @@ export const AddQuestionBox = styled.div`
 `;
 
 export const PlusIcon = styled(IoIosAddCircleOutline)`
-  color: #5574f7;
-  width: 20vw;
-  height: 20vw;
-  padding: 30px;
+  color: #fff;
+  font-size: 1rem;
+  margin: -3px 0;
 `;
 
 export const MinusIcon = styled(IoIosRemoveCircleOutline)`
-  color: #5574f7;
-  width: 20vw;
-  height: 20vw;
-  padding: 30px;
+  color: #fff;
+  font-size: 1rem;
+  margin: -3px 0;
 `;
 
 export const StyledFooter = styled.footer`
   background-image: linear-gradient(25deg, #5574f7, #60c3ff);
-  max-width: 800px;
   margin: 0 auto;
   display: flex;
   padding: 0.5rem 0rem;
@@ -331,6 +340,7 @@ export const QuestionFooter = styled(StyledFooter)`
     margin: 0 1rem;
     font-size: 12px;
     font-weight: bold;
+  }
 `;
 
 export const MessageHeader = styled.header`
@@ -476,7 +486,7 @@ export const ConversationPage = styled.section`
 
   footer {
     background-image: linear-gradient(25deg, #5574f7, #60c3ff);
-    max-width: 800px;
+    width: 100%;
     margin: 0 auto;
     display: flex;
     padding: 0.5rem 0rem;
@@ -546,6 +556,42 @@ export const StyledInput = styled.input`
   margin: 0.5rem;
   ::placeholder {
     color: #5574f7;
+  }
+`;
+
+export const StyledQuestionForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  .Dropdown-control {
+    align-self: stretch;
+    border: 1px solid #5574f7;
+    color: #5574f7;
+  }
+
+  .Dropdown-menu {
+    align-items: flex-start;
+    .Dropdown-option {
+      text-align: left;
+      color: #5574f7;
+      align-items: flex-start;
+    }
+  }
+
+  input {
+    outline: none;
+    border: 1px solid #5574f7;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    ::placeholder {
+      color: #5574f7;
+    }
+  }
+  input[type="submit"] {
+    border: none;
+    color: #fff;
+    background-color: #5574f7;
   }
 `;
 

@@ -13,6 +13,7 @@ const initialState = {
 };
 
 export const conversationsReducer = (state = initialState, action) => {
+  
   switch (action.type) {
     case CONVERSATIONS_SUCCESS:
       return {
@@ -25,6 +26,7 @@ export const conversationsReducer = (state = initialState, action) => {
       return {
         ...state,
         wasFetched: true,
+        convWasFetched: true,
         conversations: state.conversations.concat(action.payload)
       };
     case CONV_BY_ID_SUCCESS:

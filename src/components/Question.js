@@ -11,19 +11,21 @@ function Question(props) {
   });
 
   useEffect(() => {
+    const singleQuestion = props.questions.find(q => `${q.id}` === `${props.match.params.id}`);
     getQuestion({
-      question: props.questions.find(
-        q => q.id === parseInt(props.match.params.id)
-      ),
+      ...state,
+      question: singleQuestion,
       isFetched: true
     });
-  }, [props.questions, props.match.params.id]);
+  }, []);
 
-  useEffect(() => props.fetchConversations(state.question.id));
+  if(state.isFetched) {
+    props.fetchConversations(state.question.id);
+  }
 
   return (
     <div>
-      {state.isFetched ? (
+      {state.isFetched && (
         <div>
           <styles.StyledQuestionHeader>
             <h2>{state.question.author.username}</h2>
@@ -43,33 +45,24 @@ function Question(props) {
             <p>{state.question.question}</p>
           </styles.QuestionBox>
 
-          <styles.StyledLink to={`/conversation/${state.question.id}`}>
-            <styles.QuestionFooter>
-              <IoIosPersonAdd />
-              <div> RESPOND</div>
-            </styles.QuestionFooter>
-          </styles.StyledLink>
-
           {state.question.author.id !== props.userId ? (
-            <styles.QuestionFooter>
-              <styles.StyledLink
-                onClick={() => {
-                  props.newConversation(props.userId, props.match.params.id);
-                }}
-                to={`/conversation/${state.question.id}/${
-                  state.question.author.id
-                }`}
-              >
+            <styles.StyledLink
+              onClick={() => {
+                props.newConversation(props.userId, props.match.params.id);
+              }}
+              to={`/conversation/${state.question.id}/${
+                state.question.author.id
+              }`}
+            >
+              <styles.QuestionFooter>
                 <IoIosPersonAdd />
-                <span> RESPOND</span>
-              </styles.StyledLink>
-            </styles.QuestionFooter>
+                <div> RESPOND</div>
+              </styles.QuestionFooter>
+            </styles.StyledLink>
           ) : (
-            <div />
+            ""
           )}
         </div>
-      ) : (
-        <div />
       )}
     </div>
   );
